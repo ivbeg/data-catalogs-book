@@ -25,7 +25,7 @@ description: Стандарты, методики и источники, на к
 - [SDMX](https://sdmx.org/)
 - [STAC](https://stacspec.org/)
 - [OAI-PMH 2.0](https://www.openarchives.org/OAI/openarchivesprotocol.html), [robots.txt, RFC 9309](https://www.rfc-editor.org/rfc/rfc9309)
-- [Frictionless Data Package](https://datapackage.org/) и [Table Schema](https://specs.frictionlessdata.io/table-schema/)
+- [Frictionless Data Package](https://datapackage.org/) и [Table Schema](https://specs.frictionlessdata.io/table-schema/), [CSV on the Web](https://www.w3.org/TR/tabular-data-primer/), каталог схем [schema.data.gouv.fr](https://schema.data.gouv.fr)
 - [CITATION.cff](https://citation-file-format.github.io/)
 - [Croissant](https://mlcommons.org/working-groups/data/croissant/)
 - [Датасеты Hugging Face](https://huggingface.co/docs/hub/datasets)
@@ -35,6 +35,7 @@ description: Стандарты, методики и источники, на к
 - [Документация CKAN 2.12](https://docs.ckan.org/en/2.12/) и [каталог экосистемы CKAN](https://ecosystem.ckan.org/) — расширения и порталы
 - [ckanext-dcat](https://docs.ckan.org/projects/ckanext-dcat/en/latest/)
 - [ckanext-doi](https://github.com/NaturalHistoryMuseum/ckanext-doi)
+- Свои поля описания: [ckanext-scheming](https://github.com/ckan/ckanext-scheming), [блоки метаданных Dataverse](https://guides.dataverse.org/en/latest/admin/metadatacustomization.html), [свои поля InvenioRDM](https://inveniordm.docs.cern.ch/operate/customize/metadata/custom_fields/records/), [плагины схем GeoNetwork](https://github.com/metadata101), [шаблоны Huwise](https://userguide.huwise.com/en/articles/2032194), [редактор метаданных Всемирного банка](https://worldbank.github.io/metadata-editor-docs/)
 - [Возможности Dataverse](https://guides.dataverse.org/en/latest/admin/features.html) и [цитирование данных](https://dataverse.org/best-practices/data-citation)
 - [Лицензия InvenioRDM, MIT](https://inveniordm.docs.cern.ch/community/copyright-policy/)
 - [Лицензия GeoNetwork, GPL-2.0](https://docs.geonetwork-opensource.org/latest/overview/license/)
