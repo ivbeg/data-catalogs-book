@@ -1,0 +1,23 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "Название набора данных",
+  "description": "Одно-два предложения: что в наборе, за какой период и территорию.",
+  "url": "https://example.org/dataset",
+  "identifier": "https://doi.org/10.5281/zenodo.0000000",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": {
+    "@type": "Organization",
+    "name": "Организация-издатель"
+  },
+  "dateModified": "2026-01-15",
+  "temporalCoverage": "2020/2025",
+  "spatialCoverage": "Страна или регион",
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://example.org/dataset/data/example.csv"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Если используете эти данные, сошлитесь на них так, как указано ниже."
+title: "Название набора данных"
+authors:
+  - family-names: Фамилия
+    given-names: Имя
+    affiliation: Организация
+version: 1.0.0
+date-released: 2026-01-15
+license: CC-BY-4.0
+repository-code: "https://github.org/org/example-dataset"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.0000000
+    description: Удалите блок identifiers, пока DOI нет

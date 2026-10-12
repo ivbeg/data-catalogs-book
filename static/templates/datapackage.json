@@ -1,0 +1,30 @@
+{
+  "name": "example-dataset",
+  "title": "Название набора данных",
+  "description": "Одно-два предложения: что в наборе, за какой период и территорию.",
+  "licenses": [
+    {
+      "name": "CC-BY-4.0",
+      "title": "Creative Commons Attribution 4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "homepage": "https://example.org/dataset",
+  "created": "2026-01-15",
+  "resources": [
+    {
+      "name": "example",
+      "path": "data/example.csv",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "schema": {
+        "fields": [
+          {"name": "id", "type": "string", "description": "Устойчивый идентификатор строки"},
+          {"name": "year", "type": "integer", "description": "Год наблюдения"},
+          {"name": "value", "type": "number", "description": "Значение показателя"}
+        ],
+        "primaryKey": "id"
+      }
+    }
+  ]
+}
