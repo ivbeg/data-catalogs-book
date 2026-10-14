@@ -44,7 +44,7 @@ flowchart BT
 
 **США.** Каждое федеральное ведомство публикует файл `data.json` по профилю DCAT-US, а сборщик data.gov забирает эти файлы. Состояние каждого источника видно на отдельном сайте harvest.data.gov. После переезда data.gov на собственную разработку в 2026 году сборщик остался отдельной программой, которая пишет в общую базу, а витрина её только читает.
 
-**Геоданные ЕС.** Страны отдают описания слоёв через каталожные сервисы CSW по правилам INSPIRE, а геопортал INSPIRE их собирает. Сами слои остаются в национальных сервисах.
+**Геоданные ЕС.** Страны отдают описания слоёв через каталожные сервисы CSW по правилам INSPIRE. До 1 июля 2026 года их собирал отдельный геопортал INSPIRE, теперь он закрыт, и национальные геокаталоги собирает data.europa.eu, переводя карточки ISO в DCAT по профилю GeoDCAT-AP. Сами слои остаются в национальных сервисах. Подробнее — в главе [о геопорталах](../03-types/03-geoportals.md#inspire).
 
 **Наука.** Репозитории университетов отдают описания по OAI-PMH в формате из руководств OpenAIRE, и OpenAIRE собирает их в общий граф научных результатов.
 
@@ -100,7 +100,7 @@ flowchart BT
 - [Как попасть в сбор data.europa.eu](https://dataeuropa.gitlab.io/data-provider-manual/how-to-publish/request-harvesting/) — анкета, протоколы, ежедневный сбор, машинный перевод
 - [GovData](https://www.govdata.de/) и [профиль DCAT-AP.de](https://www.dcat-ap.de/); число наборов Open.NRW — запрос к API GovData, 11 октября 2026 года
 - [DCAT-US](https://resources.data.gov/resources/dcat-us/), [harvest.data.gov](https://harvest.data.gov/), [приложение каталога data.gov](https://github.com/GSA/datagov-catalog)
-- [Геопортал INSPIRE](https://inspire-geoportal.ec.europa.eu/), [руководства OpenAIRE](https://guidelines.openaire.eu/)
+- data.europa.eu, [INSPIRE datasets move to the European Data Portal](https://data.europa.eu/en/news-events/news/inspire-datasets-move-european-data-portal), 22.06.2026 — закрытие геопортала INSPIRE 1 июля 2026 года; [руководства OpenAIRE](https://guidelines.openaire.eu/)
 - data.europa.eu: число наборов по странам, каталогам, ключевым словам и лицензиям — [API поиска](https://data.europa.eu/api/hub/search/search?filter=dataset&limit=0); наборы с лицензией-ссылкой — запрос к [точке SPARQL](https://data.europa.eu/sparql); карточка набора Мальмё и старый адрес карточки (404) — API поиска; всё 12 октября 2026 года
 - [Каталог государственных данных Таиланда](https://gdcatalog.go.th/) (CKAN 2.9.2, API `package_search`), [каталог провинции Ранонг](https://ranong.gdcatalog.go.th/), [геопортал](https://geo.gdcatalog.go.th/), 12 октября 2026 года
 - [find.data.gov.scot](https://find.data.gov.scot/) — счётчики на главной; [data.gov.scot, бета-версия](https://data.gov.scot/about/using-the-beta-service), 12 октября 2026 года

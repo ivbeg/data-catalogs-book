@@ -25,3 +25,14 @@
   display: table;
   width: 100%;
 }
+
+/* Таблица со многими столбцами: прокрутка вместо наезда на оглавление. */
+.markdown .wide-table {
+  overflow-x: auto;
+  margin-bottom: var(--ifm-leading);
+}
+
+.markdown .wide-table table {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}

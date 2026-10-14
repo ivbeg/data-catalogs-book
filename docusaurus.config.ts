@@ -14,8 +14,10 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://example.com',
-  baseUrl: '/',
+  url: 'https://ivbeg.github.io',
+  baseUrl: '/data-catalogs-book/',
+  organizationName: 'ivbeg',
+  projectName: 'data-catalogs-book',
   trailingSlash: true,
 
   onBrokenLinks: 'throw',

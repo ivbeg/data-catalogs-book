@@ -196,12 +196,12 @@ const catalogTypes: Record<CatalogTypeId, CatalogTypeInfo> = {
   },
   indicators: {
     label: 'Каталог индикаторов',
-    chapters: [{label: 'Каталоги индикаторов', to: '/types/indicator-catalogs/'}],
+    chapters: [{label: 'Каталоги показателей', to: '/types/indicator-catalogs/'}],
     standards: ['SDMX', 'JSON-stat'],
     interfaces: ['SDMX REST API', 'Выгрузка таблиц в CSV с метаданными показателей'],
     platforms: {
       oss: ['.Stat Suite', 'PxWeb', 'OpenSDG (для целей устойчивого развития)'],
-      saas: ['Облачные платформы индикаторов (например, Knoema)', '.Stat Suite или PxWeb у подрядчика'],
+      saas: ['.Stat Suite или PxWeb у подрядчика', 'Облачная платформа показателей с полной выгрузкой базы в договоре'],
       static: ['OpenSDG (статический сайт)'],
       join: ['Передача данных в национальную статслужбу и международные базы (UNdata, базы Всемирного банка и МВФ)'],
     },
@@ -212,7 +212,7 @@ const catalogTypes: Record<CatalogTypeId, CatalogTypeInfo> = {
     standards: ['DDI Codebook или DDI Lifecycle', 'Dublin Core'],
     interfaces: ['Каталог исследований с API', 'OAI-PMH или выгрузка DDI'],
     platforms: {
-      oss: ['NADA'],
+      oss: ['NADA', 'Dataverse (архив с DOI и OAI-PMH)', 'OBiBa Mica (эпидемиологические исследования)'],
       saas: ['NADA у хостинг-провайдера', 'Redivis'],
       join: ['Microdata Library Всемирного банка', 'IHSN', 'Национальный архив социальных данных', 'ICPSR'],
     },
@@ -221,13 +221,14 @@ const catalogTypes: Record<CatalogTypeId, CatalogTypeInfo> = {
   ml: {
     label: 'ML-каталог',
     chapters: [{label: 'ML-каталоги', to: '/types/ml-catalogs/'}],
-    standards: ['Croissant (MLCommons)', 'Карточки датасетов (dataset cards)'],
-    interfaces: ['API хаба', 'Загрузка через стандартные библиотеки (datasets, Kaggle API)'],
+    standards: ['Croissant (MLCommons) с полями RAI', 'Карточки датасетов (dataset cards)'],
+    interfaces: ['API хаба', 'Загрузка через стандартные библиотеки (datasets, kagglehub, openml)'],
     platforms: {
-      join: ['Hugging Face Hub', 'Kaggle', 'OpenML', 'Zenodo'],
-      oss: ['InvenioRDM или Dataverse с разметкой Croissant', 'OpenML'],
+      join: ['Hugging Face Hub', 'Kaggle', 'OpenML', 'Zenodo для копии выпуска с DOI'],
+      oss: ['Dataverse с экспортёром Croissant', 'CKAN с плагином croissant из ckanext-dcat', 'Codabench для соревнований'],
       saas: ['Организационный аккаунт на Hugging Face Hub'],
     },
+    warnings: ['InvenioRDM и Zenodo не отдают Croissant. Конференции вроде NeurIPS требуют его для каждого нового набора.'],
   },
   metadata: {
     label: 'Каталог метаданных или агрегатор',
@@ -242,8 +243,15 @@ const catalogTypes: Record<CatalogTypeId, CatalogTypeInfo> = {
       'SPARQL, если нужен граф знаний',
     ],
     platforms: {
-      oss: ['CKAN с расширением ckanext-harvest', 'Piveau', 'FAIR Data Point', 'Idra'],
-      join: ['Регистрация каталогов в существующих реестрах: re3data, FAIRsharing, dataportals-registry'],
+      oss: [
+        'CKAN с расширением ckanext-harvest',
+        'Piveau',
+        'FAIR Data Point',
+        'Idra',
+        'Skosmos (словари SKOS)',
+        'Fusion Metadata Registry (структуры SDMX)',
+      ],
+      join: ['Регистрация каталогов и словарей в существующих реестрах: re3data, FAIRsharing, BARTOC, dataportals-registry'],
     },
   },
 };
@@ -433,7 +441,7 @@ function reasonForStandard(text: string): string {
     return 'Обследование описывают вместе с переменными. Без этого файл микроданных нельзя интерпретировать.';
   }
   if (text.includes('Croissant')) {
-    return 'Карточка датасета для машинного обучения: по ней набор загружают в код, а не только скачивают вручную.';
+    return 'Машиночитаемое описание ML-набора: по нему набор загружают в код, а поля RAI сообщают о перекосах и ограничениях. Hugging Face, Kaggle, OpenML и Dataverse создают основные поля сами.';
   }
   if (text.includes('SKOS')) {
     return 'Словари и классификаторы описывают отдельно от наборов, иначе агрегатор не склеит темы.';
@@ -470,7 +478,10 @@ function explainPlatform(name: string): Explained {
   if (name.includes('CKAN')) {
     return explain(name, 'API и файлы в ядре. DCAT, свои поля и сбор чужих каталогов — расширения сообщества CKAN.');
   }
-  if (name.includes('Dataverse') || name.includes('InvenioRDM') || name.includes('DSpace')) {
+  if (name.includes('DSpace')) {
+    return explain(name, 'DOI и версии в ядре. Готовой ссылки с выгрузкой в BibTeX и RIS в ядре до 10.1 включительно нет, только метатеги для Google Scholar. Это репозиторий, а не портал открытых данных.');
+  }
+  if (name.includes('Dataverse') || name.includes('InvenioRDM')) {
     return explain(name, 'DOI, версии и цитирование в ядре. Это репозиторий, а не портал открытых данных.');
   }
   if (name.includes('GeoNetwork') || name.includes('pycsw')) {
@@ -482,11 +493,20 @@ function explainPlatform(name: string): Explained {
   if (name.includes('Zenodo') || name.includes('Hugging Face') || name.includes('Kaggle') || name.includes('OpenML')) {
     return explain(name, 'Чужой хаб даёт аудиторию и DOI или загрузку в код. Своя модерация там ограничена.');
   }
+  if (name.includes('Codabench')) {
+    return explain(name, 'Скрытая тестовая часть и таблица результатов в ядре. Это площадка соревнований, а не каталог наборов: сами наборы публикуют рядом.');
+  }
   if (name.includes('NADA')) {
-    return explain(name, 'Уровни доступа к файлам обследований в ядре. Nesstar для нового каталога не берут.');
+    return explain(name, 'Семь типов доступа к файлам, заявки и выгрузка DDI в ядре. OAI-PMH нет, DOI регистрируют отдельно. Nesstar для нового каталога не берут.');
+  }
+  if (name.includes('Mica')) {
+    return explain(name, 'Подробные словари переменных и заявки на доступ в ядре; данные почти всегда только по заявке, поэтому описание должно быть полным.');
   }
   if (name.includes('PxWeb') || name.includes('.Stat') || name.includes('OpenSDG')) {
-    return explain(name, 'Платформа показателей. OpenSDG — лёгкая витрина, PxWeb и .Stat отдают SDMX из ядра.');
+    return explain(name, 'Платформа показателей. OpenSDG — лёгкая витрина, у PxWeb в ядре свой API и JSON-stat, у .Stat Suite — служба SDMX. Для обмена по SDMX к PxWeb добавляют второй продукт.');
+  }
+  if (name.includes('FAIR Data Point') || name.includes('Skosmos') || name.includes('Fusion Metadata Registry')) {
+    return explain(name, 'Узкий инструмент для одного вида описаний: FAIR Data Point — наборы в DCAT, Skosmos — словари SKOS, Fusion Metadata Registry — структуры SDMX. Портал данных он не заменяет.');
   }
   if (name.includes('Своя система')) {
     return explain(name, 'Своя разработка дороже сопровождением. Сначала докажите, что расширения готовой платформы не хватает.');
@@ -516,8 +536,8 @@ function notesForCapabilities(
   if (has('doi') || has('citation')) {
     notes.push(
       type === 'scientific'
-        ? explain('DOI и цитирование', 'У Dataverse и InvenioRDM это ядро. У CKAN DOI — расширение Музея естественной истории, и для CKAN 2.11 и 2.12 оно документацией не подтверждено.')
-        : explain('DOI и цитирование', 'Порталы открытых данных и типичные облачные сервисы DOI не выдают. Если это обязательно, смотрите Dataverse, InvenioRDM, Figshare или Zenodo.'),
+        ? explain('DOI и цитирование', 'У Dataverse и InvenioRDM это ядро. У CKAN DOI — расширение Музея естественной истории, и на CKAN 2.11 и 2.12 оно не тестировалось. У DSpace DOI в ядре, а готовой ссылки нет.')
+        : explain('DOI и цитирование', 'Порталы открытых данных и типичные облачные сервисы DOI не выдают. Если это обязательно, смотрите Dataverse, InvenioRDM, Figshare или Zenodo. Если нужна только строка «Как цитировать», хватит шаблона страницы с постоянным адресом и датой обращения.'),
     );
   }
   if (has('storage')) {
