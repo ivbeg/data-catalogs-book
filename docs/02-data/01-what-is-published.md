@@ -176,13 +176,13 @@ description: О чём бывают данные в каталогах, отку
 
 ## Что видно по реестру
 
-Реестр dataportals-registry описывает каталоги, а не наборы, и содержимое отмечает грубо: какого рода материалы в каталоге. По выгрузке от 9 октября 2026 года (выпуск 1.26.0 от 6 октября) картина такая. Один каталог может попасть в несколько строк.
+Реестр dataportals-registry описывает каталоги, а не наборы, и содержимое отмечает грубо: какого рода материалы в каталоге. По выгрузке реестра dataportals-registry (выпуск 1.27.0 от 15 октября 2026 года) картина такая. Один каталог может попасть в несколько строк.
 
 | Содержимое | Каталогов |
 |------------|----------:|
-| Наборы данных | 42 127 |
-| Слои карт | 24 653 |
-| Показатели | 2 805 |
+| Наборы данных | 42 297 |
+| Слои карт | 24 655 |
+| Показатели | 2 876 |
 | Публикации | 457 |
 | Микроданные | 151 |
 | Документы | 120 |
@@ -220,4 +220,4 @@ description: О чём бывают данные в каталогах, отку
 - [Распоряжение Правительства РФ от 10 июля 2013 года № 1187-р](https://normativ.kontur.ru/document?documentId=437155&moduleId=1) в редакции от 10 ноября 2022 года.
 - Отраслевые стандарты: [OCDS](https://standard.open-contracting.org/latest/en/), [BODS](https://standard.openownership.org/en/latest/), [IATI](https://iatistandard.org/en/), [360Giving](https://standard.threesixtygiving.org/en/latest/), [Fiscal Data Package](https://specs.frictionlessdata.io/fiscal-data-package/), [GTFS](https://gtfs.org/), [NeTEx](https://netex-cen.eu/), [Open311 GeoReport v2](https://wiki.open311.org/GeoReport_v2/), [HSDS](https://docs.openreferral.org/), [Akoma Ntoso](https://docs.oasis-open.org/legaldocml/akn-core/v1.0/akn-core-v1.0-part1-vocabulary.html), [XBRL](https://www.xbrl.org/), [Darwin Core](https://dwc.tdwg.org/), [соглашения CF](https://cfconventions.org/), [IIIF](https://iiif.io/), [IVOA](https://www.ivoa.net/), [INSDC](https://www.insdc.org/).
 - [ERA5](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels) в климатическом хранилище Copernicus.
-- Состав содержимого каталогов — выгрузка реестра dataportals-registry, 9 октября 2026 года (выпуск 1.26.0 от 6 октября).
+- Состав содержимого каталогов — выгрузка реестра dataportals-registry, выпуск 1.27.0 от 15 октября 2026 года.

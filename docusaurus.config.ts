@@ -3,6 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const REGISTRY_DOCS = 'https://datenoio.github.io/dataportals-registry/docs';
+// Год текущей редакции книги: в строке © подвала, не год сборки.
+const EDITION_YEAR = 2026;
 
 const config: Config = {
   title: 'Каталоги данных',
@@ -33,7 +35,19 @@ const config: Config = {
       onBrokenMarkdownLinks: 'throw',
     },
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      '@easyops-cn/docusaurus-search-local',
+      {
+        hashed: true,
+        language: ['ru', 'en'],
+        docsRouteBasePath: '/',
+        indexBlog: false,
+        highlightSearchTermsOnTargetPage: true,
+      },
+    ],
+  ],
 
   plugins: [
     [
@@ -93,8 +107,26 @@ const config: Config = {
           label: 'Книга',
         },
         {
+          to: '/#с-чего-начать',
+          label: 'С чего начать',
+          position: 'left',
+          // Ссылка на раздел главной: без этого Docusaurus считает её активной на любой странице,
+          // потому что путь «/» — префикс всех адресов книги. Пустой путь не встречается, подсветки нет.
+          activeBaseRegex: '^$',
+        },
+        {
           to: '/choice/route-map/',
           label: 'Маршрутная карта',
+          position: 'left',
+        },
+        {
+          to: '/appendices/checklists/',
+          label: 'Чек-листы',
+          position: 'left',
+        },
+        {
+          to: '/appendices/glossary/',
+          label: 'Глоссарий',
           position: 'left',
         },
         {
@@ -119,6 +151,16 @@ const config: Config = {
           ],
         },
         {
+          title: 'Справочник',
+          items: [
+            {label: 'Глоссарий', to: '/appendices/glossary/'},
+            {label: 'Чек-листы', to: '/appendices/checklists/'},
+            {label: 'Таблицы платформ', to: '/appendices/platform-tables/'},
+            {label: 'Шаблоны файлов', to: 'pathname:///templates/README.md'},
+            {label: 'Как цитировать книгу', to: '/#об-издании'},
+          ],
+        },
+        {
           title: 'Реестр каталогов данных',
           items: [
             {
@@ -130,7 +172,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} «Каталоги данных». Текст доступен по лицензии <a href="https://creativecommons.org/licenses/by/4.0/deed.ru">CC BY 4.0</a>.`,
+      copyright: `© ${EDITION_YEAR} Иван Бегтин, «Каталоги данных», редакция октября ${EDITION_YEAR} года. Текст доступен по лицензии <a href="https://creativecommons.org/licenses/by/4.0/deed.ru">CC BY 4.0</a>.`,
     },
     mermaid: {
       theme: {light: 'neutral', dark: 'dark'},

@@ -7,7 +7,7 @@ description: Стандарты, методики и источники, на к
 
 ## Реестры каталогов
 
-- [dataportals-registry](https://github.com/datenoio/dataportals-registry), выпуск [1.26.0](https://github.com/datenoio/dataportals-registry/releases/tag/v1.26.0)
+- [dataportals-registry](https://github.com/datenoio/dataportals-registry), выпуск [1.27.0](https://github.com/datenoio/dataportals-registry/releases/tag/v1.27.0)
 - [Оценка доверия в реестре](https://datenoio.github.io/dataportals-registry/docs/trust-score/)
 - [re3data](https://www.re3data.org/)
 - [FAIRsharing](https://fairsharing.org/)
@@ -72,14 +72,14 @@ description: Стандарты, методики и источники, на к
 - T. E. Hardwicke и др., [Analytic reproducibility in articles receiving open data badges at the journal Psychological Science](https://doi.org/10.1098/rsos.201494), Royal Society Open Science, 2021 — из 25 статей со значком открытых данных без помощи авторов проверенные числа сошлись у 9
 - [Принципы цитирования данных, FORCE11, 2014](https://force11.org/info/joint-declaration-of-data-citation-principles-final/)
 - Research Data Alliance, [Precise, Actionable Reference to Dynamic Data](https://doi.org/10.15497/RDA00132), 2025 — как ссылаться на меняющиеся данные и их части
-- Make Data Count, [Data Citation Corpus](https://makedatacount.org/find-a-tool/data-citation-corpus-documentation/) — корпус цитирований данных; [правила цитирования GBIF](https://www.gbif.org/citation-guidelines) — DOI выгрузок и производные наборы
+- Make Data Count, [Data Citation Corpus](https://makedatacount.org/data-citation/data-citation-corpus-documentation/) — корпус цитирований данных; [правила цитирования GBIF](https://www.gbif.org/citation-guidelines) — DOI выгрузок и производные наборы
 - [Creative Commons](https://creativecommons.org/licenses/)
 - [Open Definition 2.1](https://opendefinition.org/od/2.1/en/) — что считать открытой лицензией: коммерческое использование разрешено, запрет коммерции и запрет изменений — нет
 - [Список кодов SPDX](https://spdx.org/licenses/)
 - [CoreTrustSeal](https://www.coretrustseal.org/)
 - [Open Data Maturity](https://data.europa.eu/en/open-data-maturity/2025), [отчёт 2025 года](https://data.europa.eu/sites/default/files/2025-12/2025_odm_report_5.pdf) — опрос 36 стран; средний балл ЕС-27 86%, всех участников 81%; [методика](https://data.europa.eu/sites/default/files/2025-12/2025_odm_methodology.pdf) — четыре измерения по 25%
 - [MQA](https://data.europa.eu/mqa/) — оценка карточек, которые data.europa.eu забрал у порталов; шкала каталога от 0 до 7,5; [методика](https://data.europa.eu/mqa/methodology), страница от 6 октября 2026 года
-- ОЭСР, [OURdata Index 2023](https://www.oecd.org/en/publications/2023-oecd-open-useful-and-re-usable-data-ourdata-index_a37f51c3-en.html), 22 декабря 2023 года; средний балл стран ОЭСР 0,48 — в [Government at a Glance 2025](https://www.oecd.org/en/publications/government-at-a-glance-2025_0efd0bcd-en/full-report/open-government-data_619b668c.html)
+- ОЭСР, [Digital Government Index and OURdata Index: 2025 Results and Key Findings](https://www.oecd.org/en/publications/digital-government-index-and-open-useful-and-re-usable-data-index_6347ec74-en.html), 16 февраля 2026 года — средний балл стран ОЭСР 0,53 против 0,48 в [выпуске 2023 года](https://www.oecd.org/en/publications/2023-oecd-open-useful-and-re-usable-data-ourdata-index_a37f51c3-en.html)
 - [Global Data Barometer](https://globaldatabarometer.org/), [второе издание](https://globaldatabarometer.org/2025/05/the-global-data-barometer-2nd-edition-a-shared-compass-for-navigating-the-data-landscape/), 29 мая 2025 года — 43 страны Африки и Латинской Америки
 - [Open Data Inventory (ODIN)](https://odin.opendatawatch.com/), [выпуск 2024/25](https://odin.opendatawatch.com/biennialReport2024) — 197 стран
 - [Open Data Barometer](https://opendatabarometer.org/barometer/) — последнее полное издание в мае 2017 года; [Global Open Data Index](https://index.okfn.org/) — архив, последнее издание 2016/17

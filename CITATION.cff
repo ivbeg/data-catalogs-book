@@ -1,0 +1,46 @@
+# Как цитировать книгу «Каталоги данных».
+# Формат: Citation File Format 1.2.0, https://citation-file-format.github.io/
+# Адрес сайта взят из docusaurus.config.ts (url + baseUrl). На 15 октября 2026 года
+# сайт по нему ещё не открывается, а репозиторий не публичен: после публикации
+# проверьте оба адреса и при необходимости поправьте url и repository-code.
+cff-version: 1.2.0
+message: >-
+  Если вы ссылаетесь на эту книгу, цитируйте её так.
+  If you cite this book, please use the reference below.
+title: "Каталоги данных"
+abstract: >-
+  Как устроены порталы открытых данных, геопорталы и репозитории — и как выбрать
+  свой. Книга о публичных каталогах данных: какие они бывают, какие у них
+  возможности, как выбрать функции и платформу под свои задачи и как публиковать
+  данные — на портале или без него.
+authors:
+  - family-names: "Бегтин"
+    given-names: "Иван"
+    alias: "Ivan Begtin"
+license: CC-BY-4.0
+url: "https://ivbeg.github.io/data-catalogs-book/"
+repository-code: "https://github.com/ivbeg/data-catalogs-book"
+keywords:
+  - каталоги данных
+  - порталы открытых данных
+  - открытые данные
+  - геопорталы
+  - научные репозитории
+  - метаданные
+  - DCAT
+  - CKAN
+  - data catalogs
+  - open data portals
+preferred-citation:
+  type: book
+  title: "Каталоги данных: как устроены порталы открытых данных, геопорталы и репозитории — и как выбрать свой"
+  authors:
+    - family-names: "Бегтин"
+      given-names: "Иван"
+      alias: "Ivan Begtin"
+  year: 2026
+  languages:
+    - ru
+  license: CC-BY-4.0
+  url: "https://ivbeg.github.io/data-catalogs-book/"
+  repository-code: "https://github.com/ivbeg/data-catalogs-book"

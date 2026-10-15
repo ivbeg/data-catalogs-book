@@ -286,7 +286,7 @@ curl -sI https://data.caltech.edu/records/$ID | grep -i '^link' | tr ',' '\n' | 
 
 - [Joint Declaration of Data Citation Principles, FORCE11, 2014](https://force11.org/info/joint-declaration-of-data-citation-principles-final/) — восемь принципов, различие юридической и научной атрибуции
 - DataCite: [согласование содержимого и форматы](https://support.datacite.org/docs/datacite-content-resolver), рекомендуемый порядок элементов ссылки — по [руководству CESSDA](https://dmeg.cessda.eu/Data-Management-Expert-Guide/7.-Discover/Access-use-and-cite-data); выборка 3000 случайных DOI с типом «набор данных» через [API DataCite](https://api.datacite.org/dois?resource-type-id=dataset&random=true), 12 октября 2026 года
-- Make Data Count: [документация Data Citation Corpus](https://makedatacount.org/find-a-tool/data-citation-corpus-documentation/), [данные выпуска 4.0](https://doi.org/10.5281/zenodo.16546069), 27 июля 2025 года
+- Make Data Count: [документация Data Citation Corpus](https://makedatacount.org/data-citation/data-citation-corpus-documentation/), [данные выпуска 4.0](https://doi.org/10.5281/zenodo.16546069), 27 июля 2025 года
 - Research Data Alliance: [Precise, Actionable Reference to Dynamic Data](https://doi.org/10.15497/RDA00132), 2025; [редакция 2015 года](https://doi.org/10.15497/RDA00016)
 - [Правила цитирования GBIF](https://www.gbif.org/citation-guidelines) — DOI выгрузок и производные наборы; [Our World in Data: как цитировать](https://ourworldindata.org/faqs)
 - [Разметка Dataset в документации Google](https://developers.google.com/search/docs/appearance/structured-data/dataset) — свойство `citation` не для ссылки на сам набор

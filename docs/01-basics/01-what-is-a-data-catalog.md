@@ -53,7 +53,7 @@ description: Что называют каталогом, порталом, ре�
 - 2014: словарь DCAT становится рекомендацией W3C. 2016: принципы FAIR о находимости и повторном использовании научных данных.
 - 2019: директива ЕС об открытых данных. 2023: регламент о наборах данных высокой ценности, которые государственные органы должны отдавать бесплатно и в машиночитаемом виде.
 - 2020-е: каталогов становится так много, что появляются каталоги каталогов и общие поисковики. В 2021 году запущен перечень российских каталогов datacatalogs.ru, в 2023 году — открытый реестр каталогов всего мира dataportals-registry (начат в проекте Common Data Index), в 2024 году на его основе — поисковик по наборам данных Dateno. Рядом растут программы, которые читают каталоги без человека.
-- 2026: флагманы первой волны меняются. data.gov уходит с CKAN на собственную разработку, data.gov.uk переименован в National Data Library и вместо сбора всего подряд показывает отобранные коллекции.
+- 2026: флагманы первой волны меняются. data.gov уходит с CKAN на собственную разработку, data.gov.uk вместо сбора всего подряд показывает на главной отобранные коллекции, а с лета главная называется National Data Library. Прежний каталог при этом работает.
 
 Типы, которые из этого выросли, разобраны в [части III](../03-types/01-classification.md).
 
@@ -63,7 +63,7 @@ description: Что называют каталогом, порталом, ре�
 - [DCAT 3](https://www.w3.org/TR/vocab-dcat-3/)
 - [Принципы FAIR](https://www.go-fair.org/fair-principles/)
 - [re3data](https://www.re3data.org/)
-- GDS, [What's changing on data.gov.uk and why](https://dataingovernment.blog.gov.uk/2026/03/25/whats-changing-on-data-gov-uk-and-why/), 25 марта 2026 года
+- GDS, [What's changing on data.gov.uk and why](https://dataingovernment.blog.gov.uk/2026/03/25/whats-changing-on-data-gov-uk-and-why/), 25 марта 2026 года; главная data.gov.uk в веб-архиве [1 апреля 2026 года](https://web.archive.org/web/20260401002035/https://www.data.gov.uk/) — ещё без имени National Data Library, [2 июля 2026 года](https://web.archive.org/web/20260702152252/https://www.data.gov.uk/) — уже с ним
 - И. Бегтин, Telegram: [три категории каталогов данных](https://t.me/begtin/2175), 14.10.2020; [перезапуск hubofdata.ru, созданного в 2010–2011 годах](https://t.me/begtin/2764), 14.04.2021; [hubofdata.ru на CKAN появился раньше государственных порталов](https://t.me/begtin/3559), 12.02.2022; [запуск datacatalogs.ru](https://t.me/begtin/3213), 03.11.2021; [Common Data Index и реестр каталогов](https://t.me/begtin/4764), 10.04.2023; [запуск Dateno](https://t.me/begtin/5505), 13.03.2024
 - [dataportals-registry](https://github.com/datenoio/dataportals-registry) — репозиторий создан в марте 2023 года, проверено 12 октября 2026 года; [Dateno](https://dateno.io/)
 - И. Бегтин, [Data discovery в корпоративном секторе. Часть 1](https://begtin.substack.com/p/corporate-data-discovery-1), июль 2023 — зачем компании внедряют каталоги данных

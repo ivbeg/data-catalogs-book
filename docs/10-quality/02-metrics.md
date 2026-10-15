@@ -98,7 +98,7 @@ curl -s "$PORTAL/api/3/action/package_search?rows=200&start=$START&sort=metadata
 | Что проверяет | Инструмент |
 |---------------|------------|
 | Выгрузка соответствует DCAT-AP | [валидатор DCAT-AP](https://www.itb.ec.europa.eu/shacl/dcat-ap/upload) на платформе тестирования Еврокомиссии |
-| Описания слоёв и сервисы соответствуют INSPIRE | [INSPIRE Reference Validator](https://inspire.ec.europa.eu/validator/) |
+| Описания слоёв и сервисы соответствуют INSPIRE | INSPIRE Reference Validator: центральный экземпляр Еврокомиссия [закрыла 1 апреля 2026 года](https://knowledge-base.inspire.ec.europa.eu/news-and-publications/news/discontinuation-inspire-reference-validator-2026-04-01_en), код и наборы тестов открыты, валидатор разворачивают у себя на [ETF](https://github.com/etf-validator/) |
 | Разметка schema.org на странице набора читается | [Schema Markup Validator](https://validator.schema.org/) и [проверка расширенных результатов Google](https://search.google.com/test/rich-results) |
 | Запись научного репозитория похожа на FAIR | [F-UJI](https://www.f-uji.net/) — по идентификатору или адресу записи. Содержимое файла программа не читает |
 | Карточки, которые забрал европейский портал | [MQA на data.europa.eu](https://data.europa.eu/mqa/). Каталог, который туда ничего не отдаёт, балла не получает |
@@ -147,7 +147,7 @@ MQA — образец чужой формулы, а не обязательны
 ## Источники
 
 - [Методика MQA](https://data.europa.eu/mqa/methodology) — страница от 6 октября 2026 года; раздел методики в [отчёте каталога](https://data.europa.eu/api/mqa/reporter/report/en/pdf?catalogueId=codsi) от 12 октября 2026 года: четыре измерения FAIR, веса 1 / 0,5 / 0,25, шкала 0–7,5, проверка ссылки кодом 2xx, SHACL в балл не входит
-- [Валидатор DCAT-AP](https://www.itb.ec.europa.eu/shacl/dcat-ap/upload), [INSPIRE Reference Validator](https://inspire.ec.europa.eu/validator/), [F-UJI](https://www.f-uji.net/) — адреса открывались 14 октября 2026 года
+- [Валидатор DCAT-AP](https://www.itb.ec.europa.eu/shacl/dcat-ap/upload), [F-UJI](https://www.f-uji.net/) — адреса открывались 14 октября 2026 года; INSPIRE Reference Validator — [объявление JRC о закрытии центрального экземпляра](https://knowledge-base.inspire.ec.europa.eu/news-and-publications/news/discontinuation-inspire-reference-validator-2026-04-01_en), 1 апреля 2026 года, [ETF](https://github.com/etf-validator/) и [исполняемые наборы тестов](https://github.com/inspire-eu-validation/ets-repository) для своей установки
 - [Schema Markup Validator](https://validator.schema.org/), [разметка Dataset в документации Google](https://developers.google.com/search/docs/appearance/structured-data/dataset)
 - [Action API CKAN 2.12](https://docs.ckan.org/en/2.12/api/)
 - API data.gov.gr и open.canada.ca, 14 октября 2026 года: срезы по 200 наборов, сортировка по дате создания карточки и по идентификатору

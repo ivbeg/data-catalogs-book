@@ -128,7 +128,7 @@ CC BY-NC и CC BY-ND в этот список не входят. Первая з
 
 Персональные данные перед публикацией обезличивают. Оценка, можно ли по оставшимся полям узнать человека, — отдельная работа. Если риск остаётся, файл не кладут в открытый каталог.
 
-По выгрузке реестра от 9 октября 2026 года (выпуск 1.26.0 от 6 октября) ограниченный доступ отмечен примерно у 1,1 тысячи каталогов. Это пометка каталога целиком, не доля закрытых наборов внутри него.
+По выгрузке реестра dataportals-registry (выпуск 1.27.0 от 15 октября 2026 года) ограниченный доступ отмечен примерно у 1,1 тысячи каталогов. Это пометка каталога целиком, не доля закрытых наборов внутри него.
 
 ## Насколько лицензию видно снаружи
 
@@ -219,5 +219,5 @@ curl -s "https://data.gov.gr/api/3/action/license_list" \
 - Список лицензий CKAN 2.12: [ckan/model/license.py](https://github.com/ckan/ckan/blob/ckan-2.12.0/ckan/model/license.py). Наследование в выгрузке: [ckanext-dcat 2.4.4](https://github.com/ckan/ckanext-dcat/blob/v2.4.4/ckanext/dcat/config_declaration.yml), ключ `ckanext.dcat.resource.inherit.license`, значение по умолчанию `false`
 - [Выбор лицензии в Dataverse 6.12](https://guides.dataverse.org/en/6.12/user/dataset-management.html#choosing-a-license), [лицензии Zenodo](https://help.zenodo.org/docs/deposit/describe-records/licenses/), [форма сдачи DSpace 10](https://wiki.lyrasis.org/spaces/DSDOC10x/pages/408944795/Submission+User+Interface)
 - Проверка 14 октября 2026 года: API и RDF data.gov.gr (набор `emy-station-116`, `license_list` из 15 значений), API data.gouv.fr (набор закупок региона Овернь — Рона — Альпы, код `fr-lo`, в RDF ссылка на PDF 2014 года), `license_list` open.canada.ca (код `ca-ogl-lgo`), API Zenodo записи `4898406`
-- Выгрузка реестра dataportals-registry, 9 октября 2026 года (выпуск 1.26.0 от 6 октября)
+- Выгрузка реестра dataportals-registry, выпуск 1.27.0 от 15 октября 2026 года
 - [Полнота метаданных](../04-features/03-metadata-depth.md), [роли и доступ](../04-features/08-access-control-and-workflow.md)

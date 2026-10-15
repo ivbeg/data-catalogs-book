@@ -1,0 +1,42 @@
+{
+  "theme.SearchBar.label": {
+    "message": "Поиск",
+    "description": "Подпись поля поиска в панели навигации"
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "Все результаты",
+    "description": "Ссылка на страницу со всеми результатами поиска"
+  },
+  "theme.SearchBar.noResultsText": {
+    "message": "Ничего не найдено",
+    "description": "Подсказка, когда поиск ничего не нашёл"
+  },
+  "theme.SearchBar.searchInContext": {
+    "message": "Все результаты в разделе «{context}»",
+    "description": "Ссылка на результаты внутри текущего раздела"
+  },
+  "theme.SearchBar.seeAllOutsideContext": {
+    "message": "Все результаты вне раздела «{context}»",
+    "description": "Ссылка на результаты вне текущего раздела"
+  },
+  "theme.SearchPage.existingResultsTitle": {
+    "message": "Результаты поиска по запросу «{query}»",
+    "description": "Заголовок страницы результатов поиска"
+  },
+  "theme.SearchPage.emptyResultsTitle": {
+    "message": "Поиск по книге",
+    "description": "Заголовок пустой страницы поиска"
+  },
+  "theme.SearchPage.documentsFound.plurals": {
+    "message": "Найдена {count} страница|Найдено {count} страницы|Найдено {count} страниц",
+    "description": "Число найденных страниц: формы для 1, 2–4 и 5+"
+  },
+  "theme.SearchPage.noResultsText": {
+    "message": "Ничего не найдено",
+    "description": "Текст на странице поиска, когда нет результатов"
+  },
+  "theme.SearchPage.searchContext.everywhere": {
+    "message": "Везде",
+    "description": "Пункт выбора области поиска: вся книга"
+  }
+}

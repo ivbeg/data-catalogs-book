@@ -228,7 +228,7 @@ const catalogTypes: Record<CatalogTypeId, CatalogTypeInfo> = {
       oss: ['Dataverse с экспортёром Croissant', 'CKAN с плагином croissant из ckanext-dcat', 'Codabench для соревнований'],
       saas: ['Организационный аккаунт на Hugging Face Hub'],
     },
-    warnings: ['InvenioRDM и Zenodo не отдают Croissant. Конференции вроде NeurIPS требуют его для каждого нового набора.'],
+    warnings: ['InvenioRDM и Zenodo не отдают Croissant. Трек данных NeurIPS (Evaluations & Datasets) требует его у каждой подачи с новым набором.'],
   },
   metadata: {
     label: 'Каталог метаданных или агрегатор',
@@ -526,7 +526,7 @@ function notesForCapabilities(
   }
   if (has('dcat') || has('schemaorg')) {
     if (type === 'opendata' && (delivery === 'oss' || delivery === 'custom')) {
-      notes.push(explain('DCAT и schema.org', 'У CKAN оба даёт расширение ckanext-dcat, не ядро. Расширение тестируется на CKAN 2.10, 2.11 и 2.12.'));
+      notes.push(explain('DCAT и schema.org', 'У CKAN оба даёт расширение ckanext-dcat, не ядро. Поддержка заявлена для CKAN 2.10 и 2.11, тесты идут и на 2.12.'));
     } else if (delivery === 'saas') {
       notes.push(explain('DCAT и schema.org', 'У облачного портала выгрузка DCAT обычно входит в сервис. Разметку schema.org проверьте на странице набора: она бывает урезанной.'));
     } else {

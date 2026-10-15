@@ -43,7 +43,7 @@ description: Когда каталог собирают из файлов — JK
 | Статический каталог STAC | пространственные файлы, которые читает программа | ответа на запрос «все файлы этой территории за эти даты» |
 | Datasette | одна база SQLite | статики: страница жива, пока запущен процесс |
 
-В реестре dataportals-registry выпуска 1.26.0 от 6 октября 2026 года — 48 порталов открытых данных на JKAN, 72 каталога на OpenSDG и 44 портала открытых данных на Datasette. Это те же числа, что в главах о [порталах открытых данных](../03-types/02-open-data-portals.md), [показателях](../03-types/05-indicator-catalogs.md) и в [карточке JKAN](../05-platforms/04-platform-profiles.md).
+В реестре dataportals-registry выпуска 1.27.0 от 15 октября 2026 года — 48 порталов открытых данных на JKAN, 72 каталога на OpenSDG и 44 портала открытых данных на Datasette. Это те же числа, что в главах о [порталах открытых данных](../03-types/02-open-data-portals.md), [показателях](../03-types/05-indicator-catalogs.md) и в [карточке JKAN](../05-platforms/04-platform-profiles.md).
 
 Обычному генератору хватает шаблона страницы, блока schema.org из [готового файла](pathname:///templates/schema-dataset.jsonld) и файла `data.json` или `datapackage.json` рядом. Один набор в Git подробнее разобран в главе [о репозиториях](./03-git-repositories.md). Генератор берут, когда наборов мало и JKAN со своей схемой только мешает. Когда наборов десятки, готовый каталог экономит шаблон.
 
@@ -181,4 +181,4 @@ curl -sG "https://data.gov.cz/sparql" \
 - [Рекомендации STAC о статическом каталоге](https://github.com/radiantearth/stac-best-practices/blob/main/best-practices-catalog-and-collection.md) — файлы, относительные ссылки, каталог не отвечает на запросы. [STAC Browser](https://github.com/radiantearth/stac-browser). Каталог Earth Engine: [catalog.json](https://earthengine-stac.storage.googleapis.com/catalog/catalog.json), 133 дочерние ссылки, проверено 14 октября 2026 года
 - [Datasette](https://datasette.io/), репозиторий [simonw/datasette](https://github.com/simonw/datasette), лицензия Apache-2.0. [Datasette Lite](https://github.com/simonw/datasette-lite) — база открывается в браузере, последний push 9 августа 2026 года
 - [Пределы GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits) — 1 ГБ на опубликованный сайт, 10 минут на сборку, рекомендуемый 1 ГБ на репозиторий-источник, мягкий предел трафика 100 ГБ в месяц. Сверено 14 октября 2026 года
-- Числа установок JKAN, OpenSDG и Datasette — выгрузка реестра dataportals-registry, выпуск 1.26.0 от 6 октября 2026 года, запросы от 9 октября. Повторно 14 октября не запрашивались.
+- Числа установок JKAN, OpenSDG и Datasette — выгрузка реестра dataportals-registry, выпуск 1.27.0 от 15 октября 2026 года.

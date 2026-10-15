@@ -127,15 +127,15 @@ description: Зачем каталогу отдавать описания на�
 
 ### Что показывает реестр
 
-По выгрузке реестра dataportals-registry от 9 октября 2026 года (выпуск 1.26.0 от 6 октября) хотя бы один стандартный способ отдать описания — DCAT, OAI-PMH, CSW, OGC API Records, SDMX или STAC — записан у 9 330 каталогов из 43 415, это 21%. Выгрузка DCAT есть у 5 233. Из них 3 152 отдают сразу и DCAT-US, и DCAT-AP: это в основном сайты ArcGIS Hub, у которых обе ленты включены по умолчанию.
+По выгрузке реестра dataportals-registry (выпуск 1.27.0 от 15 октября 2026 года) хотя бы один стандартный способ отдать описания — DCAT, OAI-PMH, CSW, OGC API Records, SDMX или STAC — записан у 9 330 каталогов из 43 614, это 21%. Выгрузка DCAT есть у 5 233. Из них 3 152 отдают сразу и DCAT-US, и DCAT-AP: это в основном сайты ArcGIS Hub, у которых обе ленты включены по умолчанию.
 
 Разметку schema.org реестр почти не записывает — таких адресов в нём 38, — поэтому её долю по реестру считать нельзя. Её видно только на самой странице.
 
-Доля зависит от платформы сильнее, чем от желания владельца. Среди порталов открытых данных DCAT отмечен у 239 из 245 на Socrata, у 348 из 454 на Huwise, у 103 из 161 на DKAN и у 633 из 1 905 на CKAN. У собственных разработок — у 24 из 1 144. Расширение ckanext-dcat ставит треть порталов на CKAN, хотя без него каталог не попадает в сбор. Запросы — в [приложении о реестре](../12-appendices/02-using-the-registry.md#экспорт-метаданных).
+Доля зависит от платформы сильнее, чем от желания владельца. Среди порталов открытых данных DCAT отмечен у 239 из 245 на Socrata, у 348 из 454 на Huwise, у 103 из 161 на DKAN и у 633 из 1 906 на CKAN. У собственных разработок — у 24 из 1 144. Расширение ckanext-dcat ставит треть порталов на CKAN, хотя без него каталог не попадает в сбор. Запросы — в [приложении о реестре](../12-appendices/02-using-the-registry.md#экспорт-метаданных).
 
 ### Расширения и их риски
 
-У CKAN в ядре выгрузки описаний нет. Всю работу делает ckanext-dcat. Его ведёт команда CKAN, лицензия AGPL, последний выпуск — 2.4.4 от 11 августа 2026 года. Автоматические тесты идут на CKAN 2.10, 2.11 и 2.12. Методика оценки расширения — в главе [об экосистемах расширений](../05-platforms/02-extension-ecosystems.md).
+У CKAN в ядре выгрузки описаний нет. Всю работу делает ckanext-dcat. Его ведёт команда CKAN, лицензия AGPL, последний выпуск — 2.4.4 от 11 августа 2026 года. В документации поддержка заявлена для CKAN 2.10 и 2.11, автоматические тесты идут и на 2.12. Пока поддержку 2.12 не объявили, работу расширения на этой версии проверяют на своём стенде. Методика оценки расширения — в главе [об экосистемах расширений](../05-platforms/02-extension-ecosystems.md).
 
 Внутри одного расширения несколько плагинов, и каждый включают отдельно:
 
@@ -257,10 +257,10 @@ curl -s "https://borealisdata.ca/api/info/exportFormats"
 - [Экспорт метаданных Dataverse](https://guides.dataverse.org/en/latest/admin/metadataexport.html), [находимость и Croissant](https://guides.dataverse.org/en/latest/admin/discoverability.html) — встроен с версии 6.10; [экспортёр DCAT 3 от GDCC](https://github.com/gdcc/exporter-dcat3), выпуск 0.8.7 от 31 августа 2026 года
 - [Сериализаторы записей InvenioRDM](https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/resources/config.py) — DCAT, DataCite, Dublin Core, schema.org
 - [GeoNetwork 4.4 и поисковики](https://docs.geonetwork-opensource.org/4.4/tutorials/introduction/extra/) — JSON-LD schema.org с Croissant; [форматы DCAT в GeoNetwork 4.4](https://docs.geonetwork-opensource.org/4.4/api/rdf-dcat/)
-- [Каталог pycsw в GeoNode](https://docs.geonode.org/en/master/basic/index.html) и [форматы вывода pycsw](https://docs.pycsw.org/en/latest/configuration.html)
+- [Каталог pycsw в коде GeoNode](https://github.com/GeoNode/geonode/blob/master/geonode/catalogue/backends/pycsw_local.py) и [форматы вывода pycsw](https://docs.pycsw.org/en/latest/configuration.html)
 - ArcGIS Hub: [ленты каталога](https://doc.esri.com/en/arcgis-hub/latest/build/federate-data.html); ленты DCAT-US 3.0 и DCAT-AP 3.0.0 на opendata.dc.gov — проверка 13 октября 2026 года
 - [SHACL-валидатор DCAT-AP Европейской комиссии](https://www.itb.ec.europa.eu/shacl/dcat-ap/upload) — типы проверок для DCAT-AP 3.0.1, 3.0.0, 2.1.1 и DCAT-AP HVD
 - Живые проверки 13 октября 2026 года: data.gov.gr (CKAN 2.11.3, набор emy-station-189), data.gouv.fr (udata 17.12.1), opendata.paris.fr, data.economie.gouv.fr и data.bs.ch (Huwise), data.cityofnewyork.us (Socrata), opendata.dc.gov (ArcGIS Hub), data.europa.eu (набор о качестве воздуха в Бристоле), каталог EEA (GeoNetwork 4.4), каталог Ifremer Sextant (GeoNetwork 4.4.13), GeoNode в Никарагуа и Боливии, библиотека микроданных Всемирного банка (NADA), Borealis (Dataverse 6.8.4), CaltechDATA (InvenioRDM), opendata.scot (JKAN), выгрузка DCAT установки IPT в Новой Зеландии
 - И. Бегтин, [Почему данные по России так непросто найти](https://begtin.substack.com/p/816), ноябрь 2024, и [Поисковые системы по данным как глобальные системы обнаружения данных](https://begtin.substack.com/p/25), май 2022 — какие порталы попадают в поиск по данным и почему
-- Распространённость выгрузок — запрос к выгрузке реестра dataportals-registry, 9 октября 2026 года (выпуск 1.26.0 от 6 октября). Запросы приведены в [приложении](../12-appendices/02-using-the-registry.md#экспорт-метаданных)
+- Распространённость выгрузок — запрос к выгрузке реестра dataportals-registry, выпуск 1.27.0 от 15 октября 2026 года. Запросы приведены в [приложении](../12-appendices/02-using-the-registry.md#экспорт-метаданных)
 - [Стандарты метаданных](../07-publishing/02-metadata-standards.md), [находимость](../07-publishing/05-discoverability.md), [полнота метаданных](./03-metadata-depth.md)
