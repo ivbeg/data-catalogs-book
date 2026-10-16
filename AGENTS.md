@@ -14,4 +14,7 @@
 npm start            # разработка
 npx tsc --noEmit     # проверка типов
 npm run build        # сборка, падает на битых ссылках
+npm run pdf          # PDF из готовой сборки: build/data-catalogs-book.pdf (scripts/pdf/README.md)
 ```
+
+Интерактивные компоненты в PDF заменяются пояснением со ссылкой на сайт: список — `INTERACTIVE_REPLACEMENTS` в `scripts/pdf/build-pdf.mjs`. Новый интерактивный компонент нужно добавить туда же.
