@@ -114,6 +114,20 @@ description: Стандарты, методики и источники, на к
 - Data Spaces Support Centre, [Blueprint 3.0](https://blueprint.dssc.eu/), февраль 2026; [CEN/CLC/TS 18331:2026](https://dssc.eu/articles/maturity-assessment-of-common-european-data-spaces) — оценка зрелости пространства данных
 - OMB, [меморандум M-25-05](https://www.whitehouse.gov/wp-content/uploads/2025/01/M-25-05-Phase-2-Implementation-of-the-Foundations-for-Evidence-Based-Policymaking-Act-of-2018-Open-Government-Data-Access-and-Management-Guidance.pdf), 15 января 2025 — инвентаризация всех активов данных, обновление не позднее 90 дней и не реже раза в год, файл `data.json`; среди целей открытого доступа названо обучение ИИ
 
+- Open Knowledge Foundation, [MCP for Open Data Portals: Trust Depends on Understanding the Data](https://blog.okfn.org/2026/06/10/mcp-for-open-data-portals-trust-depends-on-understanding-the-data/), июнь 2026 — пилоты MCP в Бразилии и Уругвае, частые вопросы как тесты
+- Open Data Watch, [Making Official Statistics Work in an AI-Driven World](https://opendatawatch.com/odin-news/making-official-statistics-work-in-an-ai-driven-world/), сентябрь 2026 — официальные серверы MCP статистических служб
+- Всемирный банк, [Data360 MCP](https://worldbank.github.io/data360-mcp/) — сервер с инструкцией для агента и проверкой покрытия
+
+## Передовые каталоги
+
+- data.gouv.fr, [API tabulaire](https://www.data.gouv.fr/dataservices/api-tabulaire-data-gouv-fr-beta) — API к каждому табличному файлу
+- Overture Maps, [GERS](https://docs.overturemaps.org/gers/) — постоянные идентификаторы объектов
+- DoltHub, [What is Dolt?](https://docs.dolthub.com/introduction/what-is-dolt) — версии таблиц как в Git
+- OpenNeuro, [руководство пользователя](https://docs.openneuro.org/user_guide.html); DANDI, [публикация наборов](https://docs.dandiarchive.org/user-guide-sharing/publishing-dandisets/) — проверка на входе
+- Copernicus Data Space Ecosystem, [openEO](https://documentation.dataspace.copernicus.eu/APIs/openEO/openEO.html) — обработка рядом с данными
+- [Data Commons](https://docs.datacommons.org/mcp/), [HDX HAPI](https://data.humdata.org/hapi), OpenSanctions, [модель утверждений](https://www.opensanctions.org/docs/statements/) — сведение многих источников
+- [microdata.no](https://www.microdata.no/en/about-microdata-no/), Redivis, [уровни доступа](https://docs.redivis.com/reference/data-access/access-levels) — доступ по ступеням
+
 ## Право ЕС
 
 - [Директива INSPIRE 2007/2/EC](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32007L0002)

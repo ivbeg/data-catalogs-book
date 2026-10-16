@@ -1286,6 +1286,44 @@ GROUP BY 1
 ORDER BY n DESC;
 ```
 
+## Передовые каталоги
+
+Глава «Что уже умеют передовые каталоги», запросы 15 октября 2026 года к той же выгрузке. ERDDAP — 175 записей, недействующая одна. Datasette — 45, недействующая одна. Redivis — 13, DataLad — 10, DANDI — 3. Datadex — 3, программный интерфейс не отмечен ни у одной:
+
+```sql
+SELECT software.id AS sid, count(*) AS n,
+       count(*) FILTER (WHERE status IN ('inactive', 'deprecated')) AS dead,
+       count(*) FILTER (WHERE api) AS with_api
+FROM catalogs
+WHERE software.id IN ('erddap', 'datasette', 'redivis', 'datalad', 'dandi', 'datadex')
+GROUP BY 1
+ORDER BY n DESC;
+```
+
+Записи с openEO в адресе или типе точки доступа — 12, из них у Copernicus Data Space Ecosystem — 3. Каталоги с интерфейсом GA4GH DRS — 27:
+
+```sql
+SELECT count(DISTINCT id) AS with_openeo,
+       count(DISTINCT id) FILTER (WHERE e.url ILIKE '%dataspace.copernicus.eu%') AS cdse
+FROM (SELECT id, unnest(endpoints) AS e FROM catalogs)
+WHERE e.url ILIKE '%openeo%' OR e.type ILIKE 'openeo%';
+
+SELECT count(DISTINCT id) AS with_drs
+FROM (SELECT id, unnest(endpoints) AS e FROM catalogs)
+WHERE e.type = 'ga4gh:drs';
+```
+
+В число с openEO попадают и два сайта сообщества с одной картой сайта: адрес содержит слово, а сервера openEO за ним нет. Записи для сверки с главой — Source Cooperative, Data Commons, Our World in Data, DoltHub:
+
+```sql
+SELECT id, catalog_type, software.id AS sid, api, link
+FROM catalogs
+WHERE link ILIKE '%source.coop%' OR link ILIKE '%datacommons.org%'
+   OR link ILIKE '%ourworldindata.org%' OR link ILIKE '%dolthub.com%';
+```
+
+В тот день у DoltHub и Our World in Data из точек доступа записана только карта сайта, хотя у обоих есть API. У Data Commons точек доступа нет вовсе и программный интерфейс не отмечен, хотя у него есть REST, SDMX и сервер MCP. У основной записи Source Cooperative — один интерфейс STAC, у записи `beta.source.coop` точек доступа нет.
+
 ## Дальше
 
 - [Примеры запросов в документации реестра](https://datenoio.github.io/dataportals-registry/docs/query-examples/)
