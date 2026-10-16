@@ -3,6 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const REGISTRY_DOCS = 'https://datenoio.github.io/dataportals-registry/docs';
+// Поисковик по наборам данных, для которого создавался реестр: он индексирует порталы по описаниям из реестра.
+const DATENO_URL = 'https://dateno.io/';
 // Год текущей редакции книги: в строке © подвала, не год сборки.
 const EDITION_YEAR = 2026;
 
@@ -123,15 +125,24 @@ const config: Config = {
           to: '/appendices/checklists/',
           label: 'Чек-листы',
           position: 'left',
+          // На экранах 997–1299 px пункт скрыт, чтобы меню поместилось (src/css/custom.css).
+          className: 'navbar-item--wide-only',
         },
         {
           to: '/appendices/glossary/',
           label: 'Глоссарий',
           position: 'left',
+          className: 'navbar-item--wide-only',
         },
         {
           href: 'https://github.com/datenoio/dataportals-registry',
           label: 'Реестр каталогов',
+          position: 'right',
+        },
+        {
+          href: DATENO_URL,
+          label: 'Поиск Dateno',
+          title: 'Dateno — поисковик по наборам данных, который индексирует порталы по описаниям из реестра',
           position: 'right',
         },
       ],
@@ -169,6 +180,7 @@ const config: Config = {
             },
             {label: 'Документация реестра', href: `${REGISTRY_DOCS}/getting-started/`},
             {label: 'Типы каталогов в реестре', href: `${REGISTRY_DOCS}/catalog-types/`},
+            {label: 'Поиск данных Dateno', href: DATENO_URL},
           ],
         },
       ],

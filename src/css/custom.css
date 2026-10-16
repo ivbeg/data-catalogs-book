@@ -21,6 +21,40 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+/* Панель навигации. Все пункты занимают около 1 410 px (замер шрифтом SF Pro 16 px, октябрь 2026),
+   мобильное меню Docusaurus включается только до 996 px. Между ними меню ужимается по шагам,
+   иначе правые пункты наезжают на левые. Новый пункт меню — пересчитать пороги. */
+@media (min-width: 997px) and (max-width: 1499px) {
+  /* Название сайта прячем, логотип остаётся ссылкой на главную. */
+  .navbar__brand .navbar__title {
+    display: none;
+  }
+
+  .navbar__brand .navbar__logo {
+    margin-right: 0;
+  }
+
+  .navbar__items .navbar__link svg[class*='iconExternalLink'] {
+    display: none;
+  }
+}
+
+@media (min-width: 997px) and (max-width: 1299px) {
+  /* Чек-листы и глоссарий остаются в боковом меню и в подвале. */
+  .navbar__item.navbar-item--wide-only {
+    display: none;
+  }
+
+  .navbar__item {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .navbar__search-input {
+    width: 9rem;
+  }
+}
+
 .markdown table {
   display: table;
   width: 100%;
@@ -35,4 +69,27 @@
 .markdown .wide-table table {
   font-size: 0.85rem;
   margin-bottom: 0;
+}
+
+/* Иллюстрация на главной: во всю ширину текста, без сдвига вёрстки (размеры подставляет Docusaurus). */
+.markdown .home-hero {
+  margin: 1.25rem 0 1.5rem;
+}
+
+.markdown .home-hero p {
+  margin: 0;
+}
+
+.markdown .home-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Светлая картинка на тёмном фоне слепит: слегка приглушаем. */
+[data-theme='dark'] .markdown .home-hero img {
+  filter: brightness(0.88);
+  box-shadow: none;
 }
