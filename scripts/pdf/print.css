@@ -266,6 +266,11 @@ body.pdf-book {
   font-weight: 700;
 }
 
+/* Главы после частей («Об авторе») отделены от последней части, как новая часть. */
+.toc-back-item {
+  margin-top: 4.2mm;
+}
+
 /* ---------- Части ---------- */
 
 .part {
@@ -577,6 +582,34 @@ body.pdf-book {
 .markdown img {
   max-width: 100%;
   break-inside: avoid;
+}
+
+/* Об авторе: абзац с фото на странице «О книге» и портрет в главе «Об авторе». */
+
+.markdown .author-card {
+  gap: 4mm;
+  margin: 0 0 3mm;
+  padding: 3mm 4mm;
+  border: 0.5pt solid var(--pdf-rule);
+  border-radius: 1.5mm;
+  background: #f3f8fa;
+  font-size: 9.8pt;
+  break-inside: avoid;
+}
+
+.markdown .author-card img {
+  width: 20mm;
+  height: 20mm;
+}
+
+.markdown .author-portrait {
+  width: 48mm;
+  margin: 1mm 0 4mm 6mm;
+}
+
+.markdown .author-portrait img {
+  border-radius: 1.5mm;
+  box-shadow: none;
 }
 
 /* Сноски */

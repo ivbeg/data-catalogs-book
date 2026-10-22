@@ -7,6 +7,7 @@
 // Как устроено:
 // 1. Порядок страниц берётся из ссылок «Следующая страница» в build/ и совпадает с боковым меню.
 //    Страницы категорий (generated-index) становятся титулами частей.
+//    Главы верхнего уровня после частей (например, «Об авторе») идут в конце книги вне частей.
 // 2. Каждая страница открывается в Chrome через встроенный локальный сервер, поэтому схемы
 //    Mermaid рендерятся так же, как на сайте. Со страницы берётся только текст главы.
 // 3. Главы склеиваются в одну HTML-книгу: обложка, выходные данные, оглавление, части, главы.
@@ -158,7 +159,10 @@ async function readingOrder(basePath) {
   const seen = new Set();
   const add = (pagePath, html) => {
     seen.add(pagePath);
-    order.push({path: pagePath, isPart: !html.includes('theme-doc-markdown')});
+    const isPart = !html.includes('theme-doc-markdown');
+    // Глава верхнего уровня: в хлебных крошках нет ни одной категории.
+    const topLevel = !isPart && breadcrumbLinks(html, basePath).length === 0;
+    order.push({path: pagePath, isPart, topLevel});
   };
   let current = basePath;
   while (current && !seen.has(current)) {
@@ -475,21 +479,26 @@ function coverPattern() {
 function groupPages(pages) {
   const front = [];
   const parts = [];
+  // Главы верхнего уровня после первой части: идут после всех частей, как «Об авторе».
+  const back = [];
   for (const page of pages) {
     if (page.kind === 'part') {
       parts.push({...page, chapters: []});
-    } else if (parts.length > 0) {
-      parts.at(-1).chapters.push(page);
-    } else {
+    } else if (parts.length === 0) {
       front.push(page);
+    } else if (page.topLevel) {
+      back.push(page);
+    } else {
+      parts.at(-1).chapters.push(page);
     }
   }
-  return {front, parts};
+  return {front, parts, back};
 }
 
-// Дерево закладок: «Содержание», главы до первой части, части с главами, у глав — разделы.
+// Дерево закладок: «Содержание», главы до первой части, части с главами, главы после частей,
+// у глав — разделы.
 function outlineTree(pages) {
-  const {front, parts} = groupPages(pages);
+  const {front, parts, back} = groupPages(pages);
   const chapter = (page) => ({
     title: page.title,
     id: page.id,
@@ -499,11 +508,12 @@ function outlineTree(pages) {
     {title: 'Содержание', id: 'toc', children: []},
     ...front.map(chapter),
     ...parts.map((part) => ({title: part.title, id: part.id, open: true, children: part.chapters.map(chapter)})),
+    ...back.map(chapter),
   ];
 }
 
 function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
-  const {front, parts} = groupPages(pages);
+  const {front, parts, back} = groupPages(pages);
 
   const pageNo = (id) => (pageNumbers.has(id) ? String(pageNumbers.get(id)) : '');
   const tocEntry = (page, cls) =>
@@ -521,6 +531,7 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
         part.chapters.map((page) => `<li>${tocEntry(page, 'toc-chapter')}</li>`).join('') +
         '</ol></li>',
     ),
+    ...back.map((page) => `<li class="toc-back-item">${tocEntry(page, 'toc-chapter toc-front')}</li>`),
     '</ol>',
     '</nav>',
   ].join('\n');
@@ -547,6 +558,7 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
   const runningHeads = [
     ...front.map((page) => ({page, left: meta.title})),
     ...parts.flatMap((part) => part.chapters.map((page) => ({page, left: part.title}))),
+    ...back.map((page) => ({page, left: meta.title})),
   ]
     .map(
       ({page, left}) =>
@@ -608,6 +620,7 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
     toc,
     ...front.map((page) => chapterSection(page, 1)),
     ...parts.flatMap((part) => [partSection(part), ...part.chapters.map((page) => chapterSection(page, 2))]),
+    ...back.map((page) => chapterSection(page, 1)),
     destinations,
   ].join('\n');
 
@@ -783,7 +796,7 @@ async function main() {
   order.forEach((item, i) => {
     item.id = `c${String(i).padStart(3, '0')}`;
     insidePart ||= item.isPart;
-    item.demote = insidePart && !item.isPart;
+    item.demote = insidePart && !item.isPart && !item.topLevel;
   });
   const pathMap = Object.fromEntries(order.map((item) => [item.path, item.id]));
   log(`страниц в книге: ${order.length} (частей: ${order.filter((i) => i.isPart).length})`);
@@ -814,6 +827,7 @@ async function main() {
       return {
         ...data,
         id: item.id,
+        topLevel: item.topLevel,
         title,
         tocTitle: title,
         runningTitle: isRoot ? title : data.sidebarLabel || title,

@@ -18,8 +18,9 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://ivbeg.github.io',
-  baseUrl: '/data-catalogs-book/',
+  // Сайт книги живёт на поддомене личного сайта автора: static/CNAME, DNS — CNAME на ivbeg.github.io.
+  url: 'https://datacatalogs.begtin.tech',
+  baseUrl: '/',
   organizationName: 'ivbeg',
   projectName: 'data-catalogs-book',
   trailingSlash: true,
@@ -159,6 +160,8 @@ const config: Config = {
             {label: 'Маршрутная карта выбора', to: '/choice/route-map/'},
             {label: 'Публикация без портала', to: '/beyond-portals/when-portal-not-needed/'},
             {label: 'Качество каталогов', to: '/quality/quality-levels/'},
+            {label: 'Об авторе', to: '/about-the-author/'},
+            {label: 'Сайт автора', href: 'https://begtin.tech/ru/'},
           ],
         },
         {

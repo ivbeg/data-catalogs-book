@@ -1,8 +1,8 @@
 # Как цитировать книгу «Каталоги данных».
 # Формат: Citation File Format 1.2.0, https://citation-file-format.github.io/
-# Адрес сайта взят из docusaurus.config.ts (url + baseUrl). На 15 октября 2026 года
-# сайт по нему ещё не открывается, а репозиторий не публичен: после публикации
-# проверьте оба адреса и при необходимости поправьте url и repository-code.
+# Адрес сайта взят из docusaurus.config.ts (url + baseUrl): книга публикуется на
+# поддомене datacatalogs.begtin.tech. Пока DNS и GitHub Pages не настроены, адрес не
+# открывается: после публикации проверьте его и repository-code.
 cff-version: 1.2.0
 message: >-
   Если вы ссылаетесь на эту книгу, цитируйте её так.
@@ -18,7 +18,7 @@ authors:
     given-names: "Иван"
     alias: "Ivan Begtin"
 license: CC-BY-4.0
-url: "https://ivbeg.github.io/data-catalogs-book/"
+url: "https://datacatalogs.begtin.tech/"
 repository-code: "https://github.com/ivbeg/data-catalogs-book"
 keywords:
   - каталоги данных
@@ -42,5 +42,5 @@ preferred-citation:
   languages:
     - ru
   license: CC-BY-4.0
-  url: "https://ivbeg.github.io/data-catalogs-book/"
+  url: "https://datacatalogs.begtin.tech/"
   repository-code: "https://github.com/ivbeg/data-catalogs-book"
