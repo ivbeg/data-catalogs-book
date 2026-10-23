@@ -113,7 +113,7 @@ Codabench — преемник CodaLab Competitions. CodaLab перестал п
 
 | Возможность | Hugging Face | Kaggle | OpenML | Dataverse | CKAN |
 |-------------|--------------|--------|--------|-----------|------|
-| Croissant | ядро | ядро | ядро | внешний экспортёр exporter-croissant | расширение ckanext-dcat, плагин `croissant` |
+| Croissant | ядро | ядро | ядро | ядро с версии 6.10, раньше внешний экспортёр | расширение ckanext-dcat, плагин `croissant` |
 | Разбиение на части | ядро: части описаны в карточке | нет: только файлы набора | ядро: задача задаёт разбиение | нет | нет |
 | Загрузка из кода одной строкой | ядро | ядро | ядро | нет: API и клиент pyDataverse | нет: API и прямые ссылки на файлы |
 | Доступ по запросу | ядро: автор включает запрос доступа | нет: только закрытый набор целиком | не найден | ядро: закрытые файлы с запросом доступа | только закрытый набор целиком |
@@ -122,8 +122,8 @@ Codabench — преемник CodaLab Competitions. CodaLab перестал п
 Подробности по своим установкам:
 
 - **CKAN.** Плагин `croissant` в расширении ckanext-dcat появился в версии 2.3.0 (февраль 2025 года), последний выпуск расширения — 2.4.4 от 11 августа 2026 года. Описание встраивается в страницу набора и отдаётся по адресу `/dataset/<id>/croissant.jsonld`. Поля таблицы (`RecordSet` в терминах Croissant) попадают в описание, только если файл загружен в хранилище таблиц CKAN DataStore. Иначе программа узнает о файле, но не о его колонках. Про само расширение и его совместимость с версиями CKAN — в главе [про CKAN](../05-platforms/03-ckan-and-extensions.md).
-- **Dataverse.** Экспортёр Croissant ведёт сообщество GDCC, последний выпуск — 0.1.6. Он работает с Dataverse 6.0 и новее, а встраивает описание в страницу набора с версии 6.2. Механизм внешних экспортёров документация Dataverse называет экспериментальным: при обновлении платформы его стоит проверять. Harvard Dataverse 12 октября 2026 года отдавал Croissant по запросу к API.
-- **GeoNetwork** встраивает в страницу записи разметку schema.org с полями Croissant — это пригодится, если наборы для обучения — снимки и слои.
+- **Dataverse.** С версии 6.10 Croissant встроен в ядро: в страницу набора встраивается краткая разметка без списка файлов, а полное описание отдаёт выгрузка. Раньше это был внешний экспортёр сообщества GDCC (последний выпуск — 0.1.6), который работал с Dataverse 6.0 и новее и встраивал описание в страницу с версии 6.2; теперь его репозиторий помечен как устаревший. На установках старше 6.10 Croissant по-прежнему ставят этим экспортёром. Harvard Dataverse 12 октября 2026 года отдавал Croissant по запросу к API.
+- **GeoNetwork** встраивает в страницу записи разметку schema.org. Поля Croissant для схемы ISO 19115-3 добавлены в ветку будущего выпуска 4.4.13, в выпуске 4.4.12 их нет. Это пригодится, если наборы для обучения — снимки и слои.
 - **InvenioRDM и Zenodo** Croissant не отдают: в коде платформы есть разметка schema.org, Data Package и RO-Crate, но не Croissant.
 - **Статический сайт.** Девять сайтов бенчмарков в реестре сделаны на Jekyll и лежат на GitHub Pages. Для коллекции из нескольких наборов этого достаточно, если рядом с каждым набором лежит файл Croissant, проверенный валидатором, и сами файлы — на хабе или в репозитории с DOI. Как сделать такой сайт — в главе [о статических сайтах](../08-beyond-portals/02-static-sites.md).
 
@@ -211,7 +211,7 @@ curl -s "https://www.openml.org/croissant/dataset/61"
 curl -s "https://www.openml.org/api/v1/json/data/61"
 # UCI: описание набора, в ответе есть DOI
 curl -s "https://archive.ics.uci.edu/api/dataset?id=53"
-# Dataverse с экспортёром Croissant
+# Dataverse: полное описание в Croissant
 curl -s "https://dataverse.harvard.edu/api/datasets/export?exporter=croissant&persistentId=doi:10.7910/DVN/TJCLKP"
 # DataCite: сколько DOI наборов выдал Kaggle (префикс 10.34740); у Hugging Face префикс 10.57967
 curl -s "https://api.datacite.org/dois?prefix=10.34740&resource-type-id=dataset&page%5Bsize%5D=0"
@@ -228,7 +228,7 @@ mlcroissant validate --jsonld metadata.json
 |----------|-------------|--------|
 | Набор к статье или бенчмарк исследовательской группы | Hugging Face или Kaggle, копия выпуска с DOI в Zenodo или научном репозитории | там набор ищут и загружают из кода; конференции принимают эти площадки, а копия с DOI переживёт площадку |
 | Соревнование со скрытой тестовой частью | Codabench (общий codabench.org или своя установка) или соревнования Kaggle | скрытые ответы и таблица результатов есть в ядре; свой сайт этого не даст |
-| Данные нельзя отдать на чужую площадку: медицина, персональные данные | свой репозиторий с доступом по заявке, например Dataverse с экспортёром Croissant, или защищённая среда | закрытые файлы с запросом доступа есть в ядре Dataverse; открытая карточка в Croissant делает набор находимым |
+| Данные нельзя отдать на чужую площадку: медицина, персональные данные | свой репозиторий с доступом по заявке, например Dataverse (Croissant в ядре с версии 6.10), или защищённая среда | закрытые файлы с запросом доступа есть в ядре Dataverse; открытая карточка в Croissant делает набор находимым |
 | Портал открытых данных хочет, чтобы его наборы брали для обучения | не строить отдельный ML-каталог; включить плагин `croissant` в CKAN, отдавать таблицы в Parquet со словарём полей | разработчики найдут набор через поисковик данных и загрузят без ручной работы |
 | Коллекция лаборатории из десятка наборов | статический сайт с файлом Croissant у каждого набора, файлы на хабе или в репозитории с DOI | дёшево и долговечно; так сделаны большинство сайтов бенчмарков |
 | Государственная программа данных для ИИ | каталог с открытыми карточками и доступом по заявке, Croissant, выгрузка описаний и API | закрытые данные остаются под контролем, а описания видны снаружи и попадают в поисковики |
@@ -261,7 +261,7 @@ mlcroissant validate --jsonld metadata.json
 - NeurIPS 2026: [правила трека Evaluations & Datasets](https://neurips.cc/Conferences/2026/CallForEvaluationsDatasets), [размещение наборов](https://neurips.cc/Conferences/2026/EvaluationsDatasetsHosting) и [требования к полям RAI](https://blog.neurips.cc/2026/05/04/responsible-ai-metadata-requirements-for-the-evaluations-and-datasets-track-neurips-2026/), 4 мая 2026 года
 - Hugging Face: [доступ по запросу](https://huggingface.co/docs/hub/datasets-gated), [DOI](https://huggingface.co/docs/hub/doi), [лимиты хранения](https://huggingface.co/docs/hub/storage-limits), [перевод в Parquet и его предел 5 ГБ](https://huggingface.co/docs/dataset-viewer/parquet), [Croissant для наборов](https://huggingface.co/docs/dataset-viewer/croissant), [DuckDB и адреса hf://](https://huggingface.co/docs/hub/datasets-duckdb)
 - Kaggle: [документация по наборам](https://www.kaggle.com/docs/datasets) — лимит 200 ГБ на набор; Croissant и разметка страницы набора — проверка 12 октября 2026 года
-- Свои установки: [Croissant в ckanext-dcat](https://docs.ckan.org/projects/ckanext-dcat/en/latest/croissant/) и [выпуски расширения](https://github.com/ckan/ckanext-dcat/releases); [экспортёр Croissant для Dataverse](https://github.com/gdcc/exporter-croissant); [форматы выгрузки InvenioRDM в исходном коде](https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/resources/config.py) — Croissant среди них нет; [OpenML](https://github.com/openml/OpenML), [Codabench](https://github.com/codalab/codabench)
+- Свои установки: [Croissant в ckanext-dcat](https://docs.ckan.org/projects/ckanext-dcat/en/latest/croissant/) и [выпуски расширения](https://github.com/ckan/ckanext-dcat/releases); [Croissant в Dataverse](https://guides.dataverse.org/en/latest/admin/discoverability.html) и [прежний внешний экспортёр](https://github.com/gdcc/exporter-croissant); [форматы выгрузки InvenioRDM в исходном коде](https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/resources/config.py) — Croissant среди них нет; [OpenML](https://github.com/openml/OpenML), [Codabench](https://github.com/codalab/codabench)
 - CodaLab и Codabench: [объявление о закрытии CodaLab](https://codalab.lisn.upsaclay.fr/), [переход на Codabench](https://docs.codabench.org/latest/Organizers/Benchmark_Creation/How-to-transition-from-CodaLab-to-Codabench/), [итоги 2025 года](https://docs.codabench.org/latest/Newsletters_Archive/CodaLab-in-2025/)
 - DOI ML-площадок: [API DataCite](https://api.datacite.org/dois?prefix=10.34740&resource-type-id=dataset&page%5Bsize%5D=0) — префиксы 10.34740 (Kaggle), 10.57967 (Hugging Face), 10.24432 (UCI), 12 октября 2026 года
 - [Закон ЕС об ИИ, регламент 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj); [шаблон сводки обучающих данных](https://digital-strategy.ec.europa.eu/en/library/explanatory-notice-and-template-public-summary-training-content-general-purpose-ai-models), 24 июля 2025 года, и [ответы на вопросы о нём](https://digital-strategy.ec.europa.eu/en/faqs/template-general-purpose-ai-model-providers-summarise-their-training-content)

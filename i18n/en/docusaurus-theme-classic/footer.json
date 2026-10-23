@@ -1,0 +1,94 @@
+{
+  "link.title.Книга": {
+    "message": "Book",
+    "description": "The title of the footer links column with title=Книга in the footer"
+  },
+  "link.title.Справочник": {
+    "message": "Reference",
+    "description": "The title of the footer links column with title=Справочник in the footer"
+  },
+  "link.title.Скачать книгу": {
+    "message": "Download the book",
+    "description": "The title of the footer links column with title=Скачать книгу in the footer"
+  },
+  "link.title.Реестр каталогов данных": {
+    "message": "Data catalog registry",
+    "description": "The title of the footer links column with title=Реестр каталогов данных in the footer"
+  },
+  "link.item.label.О книге": {
+    "message": "About this book",
+    "description": "The label of footer link with label=О книге linking to /"
+  },
+  "link.item.label.Типы каталогов": {
+    "message": "Catalog types",
+    "description": "The label of footer link with label=Типы каталогов linking to /types/classification/"
+  },
+  "link.item.label.Возможности каталогов": {
+    "message": "Catalog capabilities",
+    "description": "The label of footer link with label=Возможности каталогов linking to /features/capability-map/"
+  },
+  "link.item.label.Маршрутная карта выбора": {
+    "message": "Decision route map",
+    "description": "The label of footer link with label=Маршрутная карта выбора linking to /choice/route-map/"
+  },
+  "link.item.label.Публикация без портала": {
+    "message": "Publishing without a portal",
+    "description": "The label of footer link with label=Публикация без портала linking to /beyond-portals/when-portal-not-needed/"
+  },
+  "link.item.label.Качество каталогов": {
+    "message": "Catalog quality",
+    "description": "The label of footer link with label=Качество каталогов linking to /quality/quality-levels/"
+  },
+  "link.item.label.Об авторе": {
+    "message": "About the author",
+    "description": "The label of footer link with label=Об авторе linking to /about-the-author/"
+  },
+  "link.item.label.Глоссарий": {
+    "message": "Glossary",
+    "description": "The label of footer link with label=Глоссарий linking to /appendices/glossary/"
+  },
+  "link.item.label.Чек-листы": {
+    "message": "Checklists",
+    "description": "The label of footer link with label=Чек-листы linking to /appendices/checklists/"
+  },
+  "link.item.label.Таблицы платформ": {
+    "message": "Platform tables",
+    "description": "The label of footer link with label=Таблицы платформ linking to /appendices/platform-tables/"
+  },
+  "link.item.label.Шаблоны файлов": {
+    "message": "File templates",
+    "description": "The label of footer link with label=Шаблоны файлов linking to pathname:///templates/README.md"
+  },
+  "link.item.label.Как цитировать книгу": {
+    "message": "How to cite the book",
+    "description": "The label of footer link with label=Как цитировать книгу linking to /#об-издании"
+  },
+  "link.item.label.PDF на русском": {
+    "message": "PDF in Russian",
+    "description": "The label of footer link with label=PDF на русском linking to pathname:///data-catalogs-book.pdf"
+  },
+  "link.item.label.PDF in English": {
+    "message": "PDF in English",
+    "description": "The label of footer link with label=PDF in English linking to pathname:///data-catalogs-book-en.pdf"
+  },
+  "link.item.label.dataportals-registry на GitHub": {
+    "message": "dataportals-registry on GitHub",
+    "description": "The label of footer link with label=dataportals-registry на GitHub linking to https://github.com/datenoio/dataportals-registry"
+  },
+  "link.item.label.Документация реестра": {
+    "message": "Registry documentation",
+    "description": "The label of footer link with label=Документация реестра linking to https://datenoio.github.io/dataportals-registry/docs/getting-started/"
+  },
+  "link.item.label.Типы каталогов в реестре": {
+    "message": "Catalog types in the registry",
+    "description": "The label of footer link with label=Типы каталогов в реестре linking to https://datenoio.github.io/dataportals-registry/docs/catalog-types/"
+  },
+  "link.item.label.Поиск данных Dateno": {
+    "message": "Dateno dataset search",
+    "description": "The label of footer link with label=Поиск данных Dateno linking to https://dateno.io/"
+  },
+  "copyright": {
+    "message": "© 2026 Ivan Begtin, <em>Data Catalogs</em>, October 2026 edition. The text is available under the <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a> licence.<br/>The book and the knowledge base are supported by <a href=\"https://dateno.io/\">Dateno</a>, a search engine for datasets.",
+    "description": "The footer copyright"
+  }
+}

@@ -7,6 +7,7 @@
 // Как устроено:
 // 1. Порядок страниц берётся из ссылок «Следующая страница» в build/ и совпадает с боковым меню.
 //    Страницы категорий (generated-index) становятся титулами частей.
+//    Главы верхнего уровня после частей (например, «Об авторе») идут в конце книги вне частей.
 // 2. Каждая страница открывается в Chrome через встроенный локальный сервер, поэтому схемы
 //    Mermaid рендерятся так же, как на сайте. Со страницы берётся только текст главы.
 // 3. Главы склеиваются в одну HTML-книгу: обложка, выходные данные, оглавление, части, главы.
@@ -16,7 +17,9 @@
 // 5. pdf-lib дописывает закладки (части → главы → разделы) и метаданные: название, автор,
 //    язык, ключевые слова. Закладки Chrome не используются: он задваивает в них заголовки.
 //
-// Параметры: --build-dir build  --out build/data-catalogs-book.pdf  --html book.html  --concurrency 4
+// Параметры: --locale ru|en  --build-dir build  --out build/data-catalogs-book.pdf  --html book.html  --concurrency 4
+// Английская версия: --locale en, сайт берётся из build/en, PDF — build/en/data-catalogs-book-en.pdf.
+// npm run pdf:all собирает обе версии и кладёт оба файла в корень каждой языковой версии сайта.
 // Браузер: установленный Google Chrome; другой путь — CHROME_PATH, Chromium из Playwright —
 // PDF_BROWSER_CHANNEL=chromium (после `npx playwright install chromium`).
 
@@ -31,30 +34,114 @@ import {chromium} from 'playwright-core';
 import {PDFArray, PDFDict, PDFDocument, PDFHexString, PDFName, PDFNumber} from 'pdf-lib';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const PDF_FILE_NAME = 'data-catalogs-book.pdf';
 const BOOK_PAGE = '__pdf-book.html';
+// Логотип Dateno в выходных данных: встраивается в книгу как SVG, без запроса к серверу.
+const DATENO_LOGO = path.join(ROOT, 'static/img/dateno/dateno-logo.svg');
 
-// Интерактивные компоненты, которые в PDF заменяются пояснением. {url} — адрес страницы на сайте.
-const INTERACTIVE_REPLACEMENTS = [
-  {
-    selector: '[class^="routeMap_"], [class*=" routeMap_"]',
-    html:
+// Всё, что зависит от языка книги. Название, автор и аннотация русской версии — из CITATION.cff,
+// английской — отсюда: CITATION.cff описывает русское издание.
+const LOCALES = {
+  ru: {
+    buildDir: 'build',
+    fileName: 'data-catalogs-book.pdf',
+    docsDir: 'docs',
+    lang: 'ru',
+    browserLocale: 'ru-RU',
+    dateLocale: 'ru-RU',
+    edition: /Редакция\s+[^.]*?\d{4}\s+года/,
+    rootTitle: 'О книге',
+    fallbackTitle: 'Книга',
+    contents: 'Содержание',
+    part: (number) => `Часть ${number}.`,
+    licenseCcBy:
+      'Текст доступен по лицензии Creative Commons «Атрибуция» 4.0 Международная (CC&nbsp;BY&nbsp;4.0): ' +
+      '<a href="https://creativecommons.org/licenses/by/4.0/deed.ru">creativecommons.org/licenses/by/4.0/deed.ru</a>.',
+    license: (name) => `Лицензия: ${name}.`,
+    supportedBy:
+      'Книга и база знаний о каталогах данных создаются при поддержке ' +
+      '<a href="https://dateno.io/">Dateno</a> — поисковой системы по наборам данных.',
+    onlineVersion: 'Онлайн-версия книги',
+    source: 'Исходный текст',
+    built: (date, revision) =>
+      `PDF собран автоматически ${date}${revision ? `, версия исходного текста ${revision}` : ''}. ` +
+      'Самая свежая редакция и интерактивная маршрутная карта — на сайте книги.',
+    routeMap:
       'Интерактивная маршрутная карта работает в онлайн-версии книги: ' +
       '<a href="{url}">{url}</a>. Ниже — схемы маршрута и логика рекомендаций.',
   },
-];
+  en: {
+    buildDir: 'build/en',
+    fileName: 'data-catalogs-book-en.pdf',
+    docsDir: 'i18n/en/docusaurus-plugin-content-docs/current',
+    lang: 'en',
+    browserLocale: 'en-GB',
+    dateLocale: 'en-GB',
+    edition: /[A-Z][a-z]+\s+\d{4}\s+edition/,
+    rootTitle: 'About This Book',
+    fallbackTitle: 'Book',
+    contents: 'Contents',
+    part: (number) => `Part ${number}.`,
+    licenseCcBy:
+      'The text is available under the Creative Commons Attribution 4.0 International licence (CC&nbsp;BY&nbsp;4.0): ' +
+      '<a href="https://creativecommons.org/licenses/by/4.0/">creativecommons.org/licenses/by/4.0</a>.',
+    license: (name) => `Licence: ${name}.`,
+    supportedBy:
+      'The book and the data catalog knowledge base are supported by ' +
+      '<a href="https://dateno.io/">Dateno</a>, a search engine for datasets.',
+    onlineVersion: 'Online edition',
+    source: 'Source text',
+    built: (date, revision) =>
+      `PDF built automatically on ${date}${revision ? ` from source revision ${revision}` : ''}. ` +
+      'The latest edition and the interactive route map are on the book’s website.',
+    routeMap:
+      'The interactive route map works in the online edition of the book: ' +
+      '<a href="{url}">{url}</a>. The route diagrams and the recommendation logic follow below.',
+    citation: {
+      title: 'Data Catalogs',
+      author: 'Ivan Begtin',
+      abstract:
+        'How open data portals, geoportals and repositories work, and how to choose your own. ' +
+        'A book about public data catalogs: what kinds exist, what they can do, how to choose features ' +
+        'and a platform for your tasks, and how to publish data, with or without a portal.',
+      keywords: [
+        'data catalogs',
+        'open data portals',
+        'open data',
+        'geoportals',
+        'research data repositories',
+        'metadata',
+        'DCAT',
+        'CKAN',
+      ],
+    },
+  },
+};
 
 const {values: args} = parseArgs({
   options: {
-    'build-dir': {type: 'string', default: 'build'},
+    locale: {type: 'string', default: 'ru'},
+    'build-dir': {type: 'string'},
     out: {type: 'string'},
     html: {type: 'string'},
     concurrency: {type: 'string', default: '4'},
   },
 });
 
-const buildDir = path.resolve(ROOT, args['build-dir']);
-const outFile = path.resolve(ROOT, args.out ?? path.join(args['build-dir'], PDF_FILE_NAME));
+const L = LOCALES[args.locale];
+if (!L) {
+  throw new Error(`Неизвестный язык: ${args.locale}. Доступны: ${Object.keys(LOCALES).join(', ')}.`);
+}
+const buildDirArg = args['build-dir'] ?? L.buildDir;
+const buildDir = path.resolve(ROOT, buildDirArg);
+const outFile = path.resolve(ROOT, args.out ?? path.join(buildDirArg, L.fileName));
+
+// Интерактивные компоненты, которые в PDF заменяются пояснением. {url} — адрес страницы на сайте.
+const INTERACTIVE_REPLACEMENTS = [
+  {
+    selector: '[class^="routeMap_"], [class*=" routeMap_"]',
+    html: L.routeMap,
+  },
+];
 const concurrency = Math.max(1, Number.parseInt(args.concurrency, 10) || 4);
 
 function log(message) {
@@ -158,7 +245,10 @@ async function readingOrder(basePath) {
   const seen = new Set();
   const add = (pagePath, html) => {
     seen.add(pagePath);
-    order.push({path: pagePath, isPart: !html.includes('theme-doc-markdown')});
+    const isPart = !html.includes('theme-doc-markdown');
+    // Глава верхнего уровня: в хлебных крошках нет ни одной категории.
+    const topLevel = !isPart && breadcrumbLinks(html, basePath).length === 0;
+    order.push({path: pagePath, isPart, topLevel});
   };
   let current = basePath;
   while (current && !seen.has(current)) {
@@ -281,7 +371,7 @@ async function waitForMermaid(page) {
 }
 
 // Выполняется в браузере на странице сайта: превращает статью в фрагмент книги.
-function extractPage({prefix, pathMap, basePath, siteUrl, demote, replacements}) {
+function extractPage({prefix, pathMap, basePath, siteUrl, demote, replacements, editionPattern}) {
   const pageUrl = siteUrl + location.pathname.slice(basePath.length);
   const sidebarLabel =
     document.querySelector('.theme-doc-sidebar-menu a.menu__link--active[aria-current="page"]')?.textContent.trim() ??
@@ -414,7 +504,7 @@ function extractPage({prefix, pathMap, basePath, siteUrl, demote, replacements})
     title,
     sidebarLabel,
     tagline,
-    edition: text.match(/Редакция\s+[^.]*?\d{4}\s+года/)?.[0] ?? null,
+    edition: text.match(new RegExp(editionPattern))?.[0] ?? null,
     mermaid: root.querySelectorAll('.docusaurus-mermaid-container svg').length,
     sections,
     html: root.innerHTML,
@@ -475,35 +565,41 @@ function coverPattern() {
 function groupPages(pages) {
   const front = [];
   const parts = [];
+  // Главы верхнего уровня после первой части: идут после всех частей, как «Об авторе».
+  const back = [];
   for (const page of pages) {
     if (page.kind === 'part') {
       parts.push({...page, chapters: []});
-    } else if (parts.length > 0) {
-      parts.at(-1).chapters.push(page);
-    } else {
+    } else if (parts.length === 0) {
       front.push(page);
+    } else if (page.topLevel) {
+      back.push(page);
+    } else {
+      parts.at(-1).chapters.push(page);
     }
   }
-  return {front, parts};
+  return {front, parts, back};
 }
 
-// Дерево закладок: «Содержание», главы до первой части, части с главами, у глав — разделы.
+// Дерево закладок: «Содержание», главы до первой части, части с главами, главы после частей,
+// у глав — разделы.
 function outlineTree(pages) {
-  const {front, parts} = groupPages(pages);
+  const {front, parts, back} = groupPages(pages);
   const chapter = (page) => ({
     title: page.title,
     id: page.id,
     children: (page.sections ?? []).map((s) => ({title: s.title, id: s.id, children: []})),
   });
   return [
-    {title: 'Содержание', id: 'toc', children: []},
+    {title: L.contents, id: 'toc', children: []},
     ...front.map(chapter),
     ...parts.map((part) => ({title: part.title, id: part.id, open: true, children: part.chapters.map(chapter)})),
+    ...back.map(chapter),
   ];
 }
 
 function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
-  const {front, parts} = groupPages(pages);
+  const {front, parts, back} = groupPages(pages);
 
   const pageNo = (id) => (pageNumbers.has(id) ? String(pageNumbers.get(id)) : '');
   const tocEntry = (page, cls) =>
@@ -511,8 +607,8 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
     `<span class="toc-leader"></span><span class="toc-page">${pageNo(page.id)}</span></a>`;
 
   const toc = [
-    '<nav class="toc" aria-label="Содержание">',
-    '<h1 class="toc-title" id="toc">Содержание</h1>',
+    `<nav class="toc" aria-label="${escapeHtml(L.contents)}">`,
+    `<h1 class="toc-title" id="toc">${escapeHtml(L.contents)}</h1>`,
     '<ol class="toc-list">',
     ...front.map((page) => `<li>${tocEntry(page, 'toc-chapter toc-front')}</li>`),
     ...parts.map(
@@ -521,6 +617,7 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
         part.chapters.map((page) => `<li>${tocEntry(page, 'toc-chapter')}</li>`).join('') +
         '</ol></li>',
     ),
+    ...back.map((page) => `<li class="toc-back-item">${tocEntry(page, 'toc-chapter toc-front')}</li>`),
     '</ol>',
     '</nav>',
   ].join('\n');
@@ -532,7 +629,7 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
 
   const partSection = (part) => {
     const {number, name} = splitPartTitle(part.title);
-    const numberHtml = number ? `<span class="part-number">Часть ${number}.</span> ` : '';
+    const numberHtml = number ? `<span class="part-number">${L.part(number)}</span> ` : '';
     return (
       '<section class="part"><div class="part-inner">' +
       `<h1 class="part-title" id="${part.id}">${numberHtml}<span class="part-name">${escapeHtml(name)}</span></h1>` +
@@ -547,6 +644,7 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
   const runningHeads = [
     ...front.map((page) => ({page, left: meta.title})),
     ...parts.flatMap((part) => part.chapters.map((page) => ({page, left: part.title}))),
+    ...back.map((page) => ({page, left: meta.title})),
   ]
     .map(
       ({page, left}) =>
@@ -557,10 +655,9 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
 
   const licenseHtml =
     meta.license === 'CC-BY-4.0'
-      ? 'Текст доступен по лицензии Creative Commons «Атрибуция» 4.0 Международная (CC&nbsp;BY&nbsp;4.0): ' +
-        '<a href="https://creativecommons.org/licenses/by/4.0/deed.ru">creativecommons.org/licenses/by/4.0/deed.ru</a>.'
+      ? L.licenseCcBy
       : meta.license
-        ? `Лицензия: ${escapeHtml(meta.license)}.`
+        ? L.license(escapeHtml(meta.license))
         : '';
 
   const cover = [
@@ -584,13 +681,12 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
     }</p>`,
     meta.author ? `<p>© ${escapeHtml(meta.year)} ${escapeHtml(meta.author)}. ${escapeHtml(meta.edition ?? '')}.</p>` : '',
     licenseHtml ? `<p>${licenseHtml}</p>` : '',
-    meta.siteUrl ? `<p>Онлайн-версия книги: <a href="${escapeHtml(meta.siteUrl)}">${escapeHtml(meta.siteUrl)}</a></p>` : '',
+    `<p class="colophon-sponsor">${readFileSync(DATENO_LOGO, 'utf8').replace(/<!--[\s\S]*?-->/g, '')}<span>${L.supportedBy}</span></p>`,
+    meta.siteUrl ? `<p>${L.onlineVersion}: <a href="${escapeHtml(meta.siteUrl)}">${escapeHtml(meta.siteUrl)}</a></p>` : '',
     meta.repository
-      ? `<p>Исходный текст: <a href="${escapeHtml(meta.repository)}">${escapeHtml(meta.repository)}</a></p>`
+      ? `<p>${L.source}: <a href="${escapeHtml(meta.repository)}">${escapeHtml(meta.repository)}</a></p>`
       : '',
-    `<p class="colophon-build">PDF собран автоматически ${escapeHtml(meta.builtAt)}${
-      meta.revision ? `, версия исходного текста ${escapeHtml(meta.revision)}` : ''
-    }. Самая свежая редакция и интерактивная маршрутная карта — на сайте книги.</p>`,
+    `<p class="colophon-build">${L.built(escapeHtml(meta.builtAt), meta.revision && escapeHtml(meta.revision))}</p>`,
     '</div></section>',
   ].join('\n');
 
@@ -608,11 +704,12 @@ function assembleBook({meta, pages, pageNumbers, stylesheets, printCss}) {
     toc,
     ...front.map((page) => chapterSection(page, 1)),
     ...parts.flatMap((part) => [partSection(part), ...part.chapters.map((page) => chapterSection(page, 2))]),
+    ...back.map((page) => chapterSection(page, 1)),
     destinations,
   ].join('\n');
 
   return `<!doctype html>
-<html lang="ru" dir="ltr" data-theme="light">
+<html lang="${L.lang}" dir="ltr" data-theme="light">
 <head>
 <meta charset="utf-8">
 <title>${escapeHtml(meta.title)}${meta.subtitle ? ` — ${escapeHtml(meta.subtitle.replace(/\.$/, ''))}` : ''}</title>
@@ -770,7 +867,7 @@ async function main() {
   if (!existsSync(indexFile)) {
     throw new Error(`Нет сборки сайта: ${path.relative(ROOT, indexFile)}. Сначала выполните npm run build.`);
   }
-  const citation = readCitation(path.join(ROOT, 'CITATION.cff'));
+  const citation = {...readCitation(path.join(ROOT, 'CITATION.cff')), ...L.citation};
   const site = readSiteInfo(await fs.readFile(indexFile, 'utf8'));
   const siteUrl = site.siteUrl ?? citation.url;
   if (!siteUrl) {
@@ -783,7 +880,7 @@ async function main() {
   order.forEach((item, i) => {
     item.id = `c${String(i).padStart(3, '0')}`;
     insidePart ||= item.isPart;
-    item.demote = insidePart && !item.isPart;
+    item.demote = insidePart && !item.isPart && !item.topLevel;
   });
   const pathMap = Object.fromEntries(order.map((item) => [item.path, item.id]));
   log(`страниц в книге: ${order.length} (частей: ${order.filter((i) => i.isPart).length})`);
@@ -791,13 +888,19 @@ async function main() {
   const virtualPages = new Map();
   const server = await startServer(basePath, virtualPages);
   const origin = `http://127.0.0.1:${server.address().port}`;
-  const browser = await launchBrowser();
+  let browser;
+  try {
+    browser = await launchBrowser();
+  } catch (error) {
+    server.close();
+    throw error;
+  }
   log(`браузер: ${browser.browserType().name()} ${browser.version()}`);
 
   try {
     const context = await browser.newContext({
       colorScheme: 'light',
-      locale: 'ru-RU',
+      locale: L.browserLocale,
       viewport: {width: 1280, height: 900},
     });
     const captured = await capturePages(context, origin, order, {
@@ -805,22 +908,24 @@ async function main() {
       basePath,
       siteUrl,
       replacements: INTERACTIVE_REPLACEMENTS,
+      editionPattern: L.edition.source,
     });
 
     const pages = captured.map((data, i) => {
       const item = order[i];
       const isRoot = item.path === basePath;
-      const title = isRoot ? data.sidebarLabel || 'О книге' : data.title;
+      const title = isRoot ? data.sidebarLabel || L.rootTitle : data.title;
       return {
         ...data,
         id: item.id,
+        topLevel: item.topLevel,
         title,
         tocTitle: title,
         runningTitle: isRoot ? title : data.sidebarLabel || title,
       };
     });
 
-    const expectedMermaid = await countMermaidInSources(path.join(ROOT, 'docs'));
+    const expectedMermaid = await countMermaidInSources(path.join(ROOT, L.docsDir));
     const renderedMermaid = pages.reduce((sum, p) => sum + (p.mermaid ?? 0), 0);
     log(`схем Mermaid: ${renderedMermaid}${expectedMermaid === null ? '' : ` из ${expectedMermaid} в исходниках`}`);
     if (expectedMermaid !== null && renderedMermaid < expectedMermaid) {
@@ -829,7 +934,7 @@ async function main() {
 
     const root = captured[0] ?? {};
     const meta = {
-      title: citation.title ?? 'Книга',
+      title: citation.title ?? L.fallbackTitle,
       subtitle: root.tagline?.replace(/\.$/, '') ?? citation.abstract?.split('. ')[0],
       author: citation.author,
       year: citation.year ?? String(buildDate().getFullYear()),
@@ -838,7 +943,7 @@ async function main() {
       siteUrl,
       repository: citation.repository,
       revision: gitRevision(),
-      builtAt: new Intl.DateTimeFormat('ru-RU', {day: 'numeric', month: 'long', year: 'numeric'}).format(buildDate()),
+      builtAt: new Intl.DateTimeFormat(L.dateLocale, {day: 'numeric', month: 'long', year: 'numeric'}).format(buildDate()),
     };
     const printCss = await fs.readFile(path.join(ROOT, 'scripts/pdf/print.css'), 'utf8');
     const bookUrl = `${origin}${basePath}${BOOK_PAGE}`;
@@ -895,7 +1000,7 @@ async function main() {
     if (citation.keywords?.length) {
       doc.setKeywords(citation.keywords);
     }
-    doc.setLanguage('ru-RU');
+    doc.setLanguage(L.browserLocale);
     doc.setCreator('Docusaurus, Google Chrome, scripts/pdf/build-pdf.mjs');
     doc.setProducer('pdf-lib');
     doc.setCreationDate(date);
