@@ -1,0 +1,38 @@
+{
+  "title": {
+    "message": "Data Catalogs",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Data Catalogs",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Книга": {
+    "message": "Book",
+    "description": "Navbar item with label Книга"
+  },
+  "item.label.С чего начать": {
+    "message": "Where to start",
+    "description": "Navbar item with label С чего начать"
+  },
+  "item.label.Маршрутная карта": {
+    "message": "Route map",
+    "description": "Navbar item with label Маршрутная карта"
+  },
+  "item.label.Чек-листы": {
+    "message": "Checklists",
+    "description": "Navbar item with label Чек-листы"
+  },
+  "item.label.Глоссарий": {
+    "message": "Glossary",
+    "description": "Navbar item with label Глоссарий"
+  },
+  "item.label.Реестр каталогов": {
+    "message": "Catalog registry",
+    "description": "Navbar item with label Реестр каталогов"
+  },
+  "item.label.Поиск Dateno": {
+    "message": "Dateno search",
+    "description": "Navbar item with label Поиск Dateno"
+  }
+}

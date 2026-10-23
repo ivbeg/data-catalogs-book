@@ -1,0 +1,102 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.bookSidebar.category.I. Что такое каталог данных": {
+    "message": "I. What Is a Data Catalog",
+    "description": "The label for category 'I. Что такое каталог данных' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.I. Что такое каталог данных.link.generated-index.description": {
+    "message": "Definitions, the boundaries of the concept, who uses catalogs, how a catalog is built, and the overall picture from the registry data.",
+    "description": "The generated-index page description for category 'I. Что такое каталог данных' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.II. Какие данные публикуют": {
+    "message": "II. What Data Gets Published",
+    "description": "The label for category 'II. Какие данные публикуют' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.II. Какие данные публикуют.link.generated-index.description": {
+    "message": "What the data in catalogs is about, where it comes from, how detailed it is, and in which units and formats it is published.",
+    "description": "The generated-index page description for category 'II. Какие данные публикуют' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.III. Типы каталогов": {
+    "message": "III. Types of Catalogs",
+    "description": "The label for category 'III. Типы каталогов' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.III. Типы каталогов.link.generated-index.description": {
+    "message": "How to classify data catalogs and how the main types differ: open data portals, geoportals, research repositories, indicator and microdata catalogs, ML catalogs, metadata registries and aggregators.",
+    "description": "The generated-index page description for category 'III. Типы каталогов' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.IV. Возможности каталогов": {
+    "message": "IV. Catalog Capabilities",
+    "description": "The label for category 'IV. Возможности каталогов' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.IV. Возможности каталогов.link.generated-index.description": {
+    "message": "Which capabilities data catalogs have, why they are needed and when you can do without them: metadata export, storage, DOIs, citation, metadata depth, deployment speed and more.",
+    "description": "The generated-index page description for category 'IV. Возможности каталогов' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.V. Платформы и расширения": {
+    "message": "V. Platforms and Extensions",
+    "description": "The label for category 'V. Платформы и расширения' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.V. Платформы и расширения.link.generated-index.description": {
+    "message": "Which software data catalogs are built on, what the platform cores contain, and what extension ecosystems add.",
+    "description": "The generated-index page description for category 'V. Платформы и расширения' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.VI. Как выбрать каталог": {
+    "message": "VI. Choosing a Catalog",
+    "description": "The label for category 'VI. Как выбрать каталог' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.VI. Как выбрать каталог.link.generated-index.description": {
+    "message": "From tasks to a feature set, from features to a platform or a custom build, with a justification for every decision.",
+    "description": "The generated-index page description for category 'VI. Как выбрать каталог' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.VII. Как публикуют данные": {
+    "message": "VII. Publishing Data",
+    "description": "The label for category 'VII. Как публикуют данные' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.VII. Как публикуют данные.link.generated-index.description": {
+    "message": "The publishing process, metadata standards, federation, licences and discoverability.",
+    "description": "The generated-index page description for category 'VII. Как публикуют данные' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.VIII. Публикация без портала": {
+    "message": "VIII. Publishing Without a Portal",
+    "description": "The label for category 'VIII. Публикация без портала' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.VIII. Публикация без портала.link.generated-index.description": {
+    "message": "Static sites, Git repositories, cloud storage and shared hubs: when they are enough and how to make such a publication findable.",
+    "description": "The generated-index page description for category 'VIII. Публикация без портала' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.IX. Практики": {
+    "message": "IX. Practices",
+    "description": "The label for category 'IX. Практики' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.IX. Практики.link.generated-index.description": {
+    "message": "Good practices, anti-patterns, the lifecycle of data catalogs and their archiving.",
+    "description": "The generated-index page description for category 'IX. Практики' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.X. Качество каталогов": {
+    "message": "X. Catalog Quality",
+    "description": "The label for category 'X. Качество каталогов' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.X. Качество каталогов.link.generated-index.description": {
+    "message": "Quality levels, metrics, methodologies and indices, and catalog self-audit.",
+    "description": "The generated-index page description for category 'X. Качество каталогов' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.XI. Тренды": {
+    "message": "XI. Trends",
+    "description": "The label for category 'XI. Тренды' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.XI. Тренды.link.generated-index.description": {
+    "message": "What is changing in the world of data catalogs.",
+    "description": "The generated-index page description for category 'XI. Тренды' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.Приложения": {
+    "message": "Appendices",
+    "description": "The label for category 'Приложения' in sidebar 'bookSidebar'"
+  },
+  "sidebar.bookSidebar.category.Приложения.link.generated-index.description": {
+    "message": "Glossary, using the registry, comparison tables, checklists and bibliography.",
+    "description": "The generated-index page description for category 'Приложения' in sidebar 'bookSidebar'"
+  }
+}

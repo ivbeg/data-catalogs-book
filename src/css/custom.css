@@ -140,6 +140,56 @@
   }
 }
 
+/* Блок «При поддержке Dateno» на странице «О книге»: логотип слева от описания, на узком экране — над ним. */
+.markdown .sponsor-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 var(--ifm-leading);
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+}
+
+.markdown .sponsor-card p {
+  margin: 0;
+}
+
+.markdown .sponsor-card > p:first-child {
+  flex: 0 0 auto;
+}
+
+/* Логотип чёрный, поэтому в тёмной теме у него светлая подложка. */
+.markdown .sponsor-card img {
+  display: block;
+  width: 150px;
+  height: auto;
+  padding: 0.35rem 0.5rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+@media (max-width: 575px) {
+  .markdown .sponsor-card {
+    display: block;
+    padding: 0.75rem;
+  }
+
+  .markdown .sponsor-card > p:first-child {
+    margin-bottom: 0.6rem;
+  }
+}
+
+/* Логотип Dateno в подвале: подпись «При поддержке» стоит в строке ниже. */
+.footer__logo {
+  max-width: 160px;
+}
+
+/* Docusaurus приглушает логотип подвала до наведения; логотип поддержки показываем полностью. */
+.footer [class*='footerLogoLink'] {
+  opacity: 1;
+}
+
 /* Портрет в главе «Об авторе»: справа от первых абзацев, на узком экране — над ними. */
 .markdown .author-portrait {
   float: right;

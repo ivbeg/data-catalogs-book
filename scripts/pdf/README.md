@@ -6,6 +6,8 @@ PDF собирается из готового сайта, а не из Markdown
 npm run build      # сайт в build/
 npm run pdf        # PDF в build/data-catalogs-book.pdf
 npm run build:pdf  # обе команды подряд
+npm run pdf:en     # английский PDF из build/en/: data-catalogs-book-en.pdf
+npm run pdf:all    # оба PDF; place-pdfs.mjs кладёт их в build/ и build/en/
 ```
 
 На GitHub Actions PDF собирается при каждой публикации сайта (`.github/workflows/deploy-pages.yml`) и лежит рядом с ним: `https://datacatalogs.begtin.tech/data-catalogs-book.pdf`.

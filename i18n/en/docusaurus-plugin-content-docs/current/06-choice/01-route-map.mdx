@@ -1,0 +1,74 @@
+---
+title: Decision Route Map
+description: Step-by-step questions that lead to a catalog type, a build model, platforms and standards.
+---
+
+import RouteMap from '@site/src/components/RouteMap';
+
+This chapter answers the book's fourth question: which data catalog to choose for its creator's tasks. The choice goes in three stages. First the contents determine the **catalog type**. Then obligations and the access regime set the **standards and interfaces**. Finally, resources, existing infrastructure and scale determine the **build model and platforms**. If the owner is already clear (a ministry, a city, a university, an agency), the chapter ["Typical Scenarios"](./06-scenarios.md) gives the starting row. The route below is for when the type is not yet clear or the scenario row did not fit.
+
+## Take the route
+
+Answer eight questions. The recommendation is a starting point for comparison, not a final choice. Every platform, standard and interface in the answer has a short justification. Marked capabilities come with a note on whether they live in the platform core or in an extension. The detailed method, from tasks to features and from features to a platform, with a justification for each decision, is described in the chapters ["Selecting Features"](./02-feature-selection.md), ["From Features to a Platform"](./03-from-features-to-platform.md) and ["Justifying a Decision"](./04-justifying-decisions.md).
+
+<RouteMap />
+
+## Route diagram
+
+```mermaid
+flowchart TD
+  A([Start]) --> Q1{What matters most in the data?}
+  Q1 --> T[Catalog type]
+  T --> Q2{Obligations:<br/>INSPIRE, federation, DOI, SDMX,<br/>personal data, regulations}
+  Q2 --> S[Metadata standards<br/>and machine interfaces]
+  S --> Q3{Access regime:<br/>open, restricted, paid}
+  Q3 --> Q4{Resources and existing<br/>infrastructure}
+  Q4 --> Q5{Scale and update<br/>frequency}
+  Q5 --> R([Build model and platforms])
+```
+
+### Stage 1. Catalog type by contents
+
+```mermaid
+flowchart LR
+  Q{What matters most in the data?}
+  Q -->|Tables, files, registers| OD[Open data portal]
+  Q -->|Layers and map services| GEO[Geoportal]
+  Q -->|Research results, citation needed| SCI[Research repository]
+  Q -->|Indicators and time series| IND[Indicator catalog]
+  Q -->|Anonymised survey records| MIC[Microdata catalog]
+  Q -->|Datasets and models for ML| ML[ML catalog]
+  Q -->|Only descriptions of others' data| AGG[Metadata catalog or aggregator]
+```
+
+### Stage 2. Standards and interfaces
+
+This stage has no diagram of its own: the standards follow from the catalog type and the owner's obligations, such as INSPIRE, harvesting by a higher-level portal, DOI, SDMX or personal data. Which standards and interfaces each type requires is summarised in the [capability map](../04-features/01-capability-map.md), and for typical owners in the [scenario table](./06-scenarios.md).
+
+### Stage 3. Build model
+
+```mermaid
+flowchart TD
+  E{Already have ArcGIS, a GIS server<br/>or a repository?} -->|Yes| X[Develop what you have]
+  E -->|No| R{Resources}
+  R -->|No IT team and no budget| SC{Volume}
+  SC -->|Small| J[Publish in an existing catalog]
+  SC -->|Large| SAAS[Cloud service]
+  R -->|Budget, no developers| SAAS2[Cloud service<br/>or open source with a contractor]
+  R -->|Own team| OSS[Open source on your own infrastructure]
+  OSS -.small volume.-> ST[Static catalog]
+```
+
+## How the logic works
+
+- The recommendation matches the diagrams above.
+- One of the answer options is "don't build your own catalog". For small owners without an IT team this is often the best choice.
+- Options worth comparing with the recommendation are shown next to it.
+
+## Sources
+
+- [Selecting Features](./02-feature-selection.md)
+- [From Features to a Platform](./03-from-features-to-platform.md)
+- [Justifying a Decision](./04-justifying-decisions.md)
+- [Requirements Checklist](./07-requirements-checklist.md)
+- [Typical Scenarios](./06-scenarios.md)

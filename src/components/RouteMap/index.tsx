@@ -1,8 +1,58 @@
 import React, {useState, type ReactNode} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
-import {questions, recommend, type Answers, type Explained, type Question} from './model';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import * as modelRu from './model';
+import * as modelEn from './model.en';
+import type {Answers, Explained, Question} from './model';
 import styles from './styles.module.css';
+
+// Вопросы, правила и подписи — на языке текущей версии сайта.
+const models = {ru: modelRu, en: modelEn};
+
+const ui = {
+  ru: {
+    catalogType: 'Тип каталога',
+    more: 'Подробнее',
+    delivery: 'Как создавать',
+    alsoConsider: 'Стоит рассмотреть и',
+    platforms: 'С каких платформ начать сравнение',
+    capabilities: 'Выбранные возможности: ядро или расширение',
+    standards: 'Стандарты метаданных',
+    warnings: 'На что обратить внимание',
+    readNext: 'Что прочитать дальше',
+    yourAnswers: 'Ваши ответы',
+    recommendation: 'Рекомендация',
+    step: (n: number, total: number) => `Шаг ${n} из ${total}`,
+    back: 'Назад',
+    next: 'Далее',
+    restart: 'Начать заново',
+  },
+  en: {
+    catalogType: 'Catalog type',
+    more: 'More',
+    delivery: 'How to build it',
+    alsoConsider: 'Also worth considering',
+    platforms: 'Platforms to start comparing',
+    capabilities: 'Selected capabilities: core or extension',
+    standards: 'Metadata standards',
+    warnings: 'Things to watch',
+    readNext: 'What to read next',
+    yourAnswers: 'Your answers',
+    recommendation: 'Recommendation',
+    step: (n: number, total: number) => `Step ${n} of ${total}`,
+    back: 'Back',
+    next: 'Next',
+    restart: 'Start over',
+  },
+};
+
+type Lang = keyof typeof models;
+
+function useLang(): Lang {
+  const {currentLocale} = useDocusaurusContext().i18n;
+  return currentLocale === 'en' ? 'en' : 'ru';
+}
 
 function OptionList({
   question,
@@ -40,6 +90,7 @@ function OptionList({
 }
 
 function AnswerSummary({answers}: {answers: Answers}): ReactNode {
+  const {questions} = models[useLang()];
   return (
     <ul className={styles.summary}>
       {questions.map((question) => {
@@ -70,12 +121,16 @@ function ExplainedList({items}: {items: Explained[]}): ReactNode {
 }
 
 function Result({answers}: {answers: Answers}): ReactNode {
-  const result = recommend(answers);
+  const lang = useLang();
+  const t = ui[lang];
+  const result = models[lang].recommend(answers);
   return (
     <div className={styles.result}>
-      <h3>Тип каталога: {result.catalogType}</h3>
+      <h3>
+        {t.catalogType}: {result.catalogType}
+      </h3>
       <p>
-        Подробнее:{' '}
+        {t.more}:{' '}
         {result.typeChapters.map((chapter, i) => (
           <React.Fragment key={chapter.to}>
             {i > 0 && ', '}
@@ -85,23 +140,27 @@ function Result({answers}: {answers: Answers}): ReactNode {
         .
       </p>
 
-      <h4>Как создавать: {result.delivery}</h4>
+      <h4>
+        {t.delivery}: {result.delivery}
+      </h4>
       <p>{result.deliveryWhy}</p>
       {result.alternatives.length > 0 && (
-        <p className={styles.muted}>Стоит рассмотреть и: {result.alternatives.join('; ')}.</p>
+        <p className={styles.muted}>
+          {t.alsoConsider}: {result.alternatives.join('; ')}.
+        </p>
       )}
 
-      <h4>С каких платформ начать сравнение</h4>
+      <h4>{t.platforms}</h4>
       <ExplainedList items={result.platforms} />
 
       {result.capabilityNotes.length > 0 && (
         <>
-          <h4>Выбранные возможности: ядро или расширение</h4>
+          <h4>{t.capabilities}</h4>
           <ExplainedList items={result.capabilityNotes} />
         </>
       )}
 
-      <h4>Стандарты метаданных</h4>
+      <h4>{t.standards}</h4>
       <ExplainedList items={result.standards} />
 
       <h4>{result.interfacesTitle}</h4>
@@ -109,7 +168,7 @@ function Result({answers}: {answers: Answers}): ReactNode {
 
       {result.warnings.length > 0 && (
         <div className="alert alert--warning" role="note">
-          <strong>На что обратить внимание</strong>
+          <strong>{t.warnings}</strong>
           <ul className={styles.warnings}>
             {result.warnings.map((warning) => (
               <li key={warning}>{warning}</li>
@@ -118,7 +177,7 @@ function Result({answers}: {answers: Answers}): ReactNode {
         </div>
       )}
 
-      <h4>Что прочитать дальше</h4>
+      <h4>{t.readNext}</h4>
       <ul>
         {result.readNext.map((chapter) => (
           <li key={chapter.to}>
@@ -128,7 +187,7 @@ function Result({answers}: {answers: Answers}): ReactNode {
       </ul>
 
       <details className={styles.details}>
-        <summary>Ваши ответы</summary>
+        <summary>{t.yourAnswers}</summary>
         <AnswerSummary answers={answers} />
       </details>
     </div>
@@ -136,6 +195,8 @@ function Result({answers}: {answers: Answers}): ReactNode {
 }
 
 export default function RouteMap(): ReactNode {
+  const t = ui[useLang()];
+  const {questions} = models[useLang()];
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const finished = step >= questions.length;
@@ -168,7 +229,7 @@ export default function RouteMap(): ReactNode {
     <div className={styles.routeMap}>
       <div className={styles.header}>
         <span className={styles.progress}>
-          {finished ? 'Рекомендация' : `Шаг ${step + 1} из ${questions.length}`}
+          {finished ? t.recommendation : t.step(step + 1, questions.length)}
         </span>
         <div
           className={styles.progressBar}
@@ -199,7 +260,7 @@ export default function RouteMap(): ReactNode {
           className="button button--secondary"
           disabled={step === 0}
           onClick={() => setStep(step - 1)}>
-          Назад
+          {t.back}
         </button>
         {!finished && question.multiple && (
           <button
@@ -207,12 +268,12 @@ export default function RouteMap(): ReactNode {
             className="button button--primary"
             disabled={selected.length === 0}
             onClick={() => setStep(step + 1)}>
-            Далее
+            {t.next}
           </button>
         )}
         {(finished || step > 0) && (
           <button type="button" className="button button--link" onClick={restart}>
-            Начать заново
+            {t.restart}
           </button>
         )}
       </div>

@@ -201,6 +201,20 @@ body.pdf-book {
   border-top: 0.5pt solid var(--pdf-rule);
 }
 
+.colophon-sponsor {
+  display: flex;
+  align-items: center;
+  gap: 4mm;
+  margin-bottom: 6mm !important;
+  color: var(--pdf-text);
+}
+
+.colophon-sponsor svg {
+  flex: 0 0 auto;
+  width: 34mm;
+  height: auto;
+}
+
 .colophon a {
   color: inherit;
 }
@@ -600,6 +614,21 @@ body.pdf-book {
 .markdown .author-card img {
   width: 20mm;
   height: 20mm;
+}
+
+.markdown .sponsor-card {
+  gap: 4mm;
+  margin: 0 0 3mm;
+  padding: 3mm 4mm;
+  border: 0.5pt solid var(--pdf-rule);
+  border-radius: 1.5mm;
+  font-size: 9.8pt;
+  break-inside: avoid;
+}
+
+.markdown .sponsor-card img {
+  width: 34mm;
+  padding: 0;
 }
 
 .markdown .author-portrait {

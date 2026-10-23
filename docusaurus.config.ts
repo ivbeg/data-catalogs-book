@@ -7,11 +7,24 @@ const REGISTRY_DOCS = 'https://datenoio.github.io/dataportals-registry/docs';
 const DATENO_URL = 'https://dateno.io/';
 // Год текущей редакции книги: в строке © подвала, не год сборки.
 const EDITION_YEAR = 2026;
+// Язык текущей сборки: Docusaurus собирает каждую локаль отдельно и выставляет эту переменную.
+// Подписи меню и подвала переводятся в i18n/<locale>/docusaurus-theme-classic/*.json,
+// а здесь — только то, что JSON-переводы не покрывают: якоря разделов главной страницы.
+const LOCALE = process.env.DOCUSAURUS_CURRENT_LOCALE ?? 'ru';
+const HOME_ANCHORS =
+  LOCALE === 'en'
+    ? {start: 'where-to-start', edition: 'about-this-edition'}
+    : {start: 'с-чего-начать', edition: 'об-издании'};
+// PDF-версии книги: npm run pdf:all кладёт оба файла в корень каждой языковой версии сайта.
+const PDF_RU = 'pathname:///data-catalogs-book.pdf';
+const PDF_EN = 'pathname:///data-catalogs-book-en.pdf';
 
 const config: Config = {
-  title: 'Каталоги данных',
+  title: LOCALE === 'en' ? 'Data Catalogs' : 'Каталоги данных',
   tagline:
-    'Как устроены порталы открытых данных, геопорталы и репозитории — и как выбрать свой',
+    LOCALE === 'en'
+      ? 'How open data portals, geoportals and repositories work, and how to choose your own'
+      : 'Как устроены порталы открытых данных, геопорталы и репозитории — и как выбрать свой',
   favicon: 'img/favicon.svg',
 
   future: {
@@ -29,7 +42,11 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'ru',
-    locales: ['ru'],
+    locales: ['ru', 'en'],
+    localeConfigs: {
+      ru: {label: 'Русский', htmlLang: 'ru'},
+      en: {label: 'English', htmlLang: 'en'},
+    },
   },
 
   markdown: {
@@ -110,7 +127,7 @@ const config: Config = {
           label: 'Книга',
         },
         {
-          to: '/#с-чего-начать',
+          to: `/#${HOME_ANCHORS.start}`,
           label: 'С чего начать',
           position: 'left',
           // Ссылка на раздел главной: без этого Docusaurus считает её активной на любой странице,
@@ -136,6 +153,10 @@ const config: Config = {
           className: 'navbar-item--wide-only',
         },
         {
+          type: 'localeDropdown',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/datenoio/dataportals-registry',
           label: 'Реестр каталогов',
           position: 'right',
@@ -150,6 +171,13 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
+      // Книга и база знаний создаются при поддержке Dateno: логотип над строкой ©, подпись — в самой строке.
+      logo: {
+        alt: 'Dateno',
+        src: 'img/dateno/dateno-logo-dark.svg',
+        href: DATENO_URL,
+        width: 160,
+      },
       links: [
         {
           title: 'Книга',
@@ -171,7 +199,14 @@ const config: Config = {
             {label: 'Чек-листы', to: '/appendices/checklists/'},
             {label: 'Таблицы платформ', to: '/appendices/platform-tables/'},
             {label: 'Шаблоны файлов', to: 'pathname:///templates/README.md'},
-            {label: 'Как цитировать книгу', to: '/#об-издании'},
+            {label: 'Как цитировать книгу', to: `/#${HOME_ANCHORS.edition}`},
+          ],
+        },
+        {
+          title: 'Скачать книгу',
+          items: [
+            {label: 'PDF на русском', to: PDF_RU},
+            {label: 'PDF in English', to: PDF_EN},
           ],
         },
         {
@@ -187,7 +222,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `© ${EDITION_YEAR} Иван Бегтин, «Каталоги данных», редакция октября ${EDITION_YEAR} года. Текст доступен по лицензии <a href="https://creativecommons.org/licenses/by/4.0/deed.ru">CC BY 4.0</a>.`,
+      copyright: `© ${EDITION_YEAR} Иван Бегтин, «Каталоги данных», редакция октября ${EDITION_YEAR} года. Текст доступен по лицензии <a href="https://creativecommons.org/licenses/by/4.0/deed.ru">CC BY 4.0</a>.<br/>Книга и база знаний создаются при поддержке <a href="${DATENO_URL}">Dateno</a> — поисковой системы по наборам данных.`,
     },
     mermaid: {
       theme: {light: 'neutral', dark: 'dark'},
