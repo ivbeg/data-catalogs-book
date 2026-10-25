@@ -13,7 +13,7 @@ pagination_next: basics/what-is-a-data-catalog
 
 <div className="home-hero">
 
-![A library card catalog: dataset cards fly out of the open drawers, showing a table, a map, charts and a globe. People with a laptop and a folder pick cards, and a search magnifying glass hangs above the catalog](/img/home/data-catalogs-hero.webp)
+![A paper model: cards rise from an open book — a temple, a map, a leaf and a molecule diagram. Islands behind the book are linked by bridges and hold a classical building, a river, an observatory, charts and a molecular model](/img/home/data-catalogs-hero.webp)
 
 </div>
 
